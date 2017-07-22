@@ -124,7 +124,12 @@ if (!empty($data)) {
         }
 
 
-        $elecData["percent"] = ($elecData["used"] / $elecData["capacity"]) * 100 ;
+        if (is_numeric($elecData["capacity"]) && $elecData["capacity"]> 0) {
+            $elecData["percent"] = ($elecData["used"] / $elecData["capacity"]) * 100 ;
+        } else {
+            $elecData["percent"] = 0;
+        }
+
         if (!is_numeric($elecData["percent"])) {
             $elecData["percent"] = 0;
         } else {
