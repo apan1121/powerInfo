@@ -1,0 +1,92 @@
+.navbar {
+    .nav {
+        button {
+            i {
+                font-size: 14px;
+            }
+        }
+    }
+}
+
+.headerBar {
+    width: 100%;
+    padding: 5px;
+    display: table;
+    margin: 0px;
+    background: #ccc;
+    .headerLeft {
+        float: left;
+        a {
+            float: left;
+            height: 50px;
+            padding: 15px 15px;
+            font-size: 18px;
+            line-height: 20px;
+            color: #999;
+        }
+    }
+    .headerRight {
+        float: right;
+        .headerFun {
+            float: right;
+            height: 50px;
+            padding: 5px 5px;
+            font-size: 18px;
+            line-height: 20px;
+        }
+    }
+}
+
+.filterBox {
+    background: #fafafa;
+    border-bottom: 1px solid #aaa;
+    padding: 5px;
+    padding-bottom: 20px;
+}
+
+.plantBox {
+    margin: 0 auto;
+    border: 1px solid #ddd;
+    background: #eee;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    .circle {
+        margin: 0 auto;
+        height: 150px;
+        position: relative;
+        .percent {
+            position: absolute;
+            bottom: 15%;
+            left: 50%;
+            transform: translateX(-50%) translateY(-50%);
+            font-weight: 900;
+        }
+        canvas {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translateX(-50%)translateY(-50%);
+        }
+        .icon{
+            position: absolute;
+            font-size: 60px;
+            top: 40%;
+            left: 50%;
+            transform: translateX(-50%)translateY(-50%);
+        }
+    }
+    .name {
+        text-align: center;
+    }
+    .fullName {
+        text-align: center;
+        &.plantIntro{
+            color: #000;
+            font-weight: 900;
+            cursor: pointer;
+        }
+    }
+    .info{
+         text-align: center;
+    }
+}

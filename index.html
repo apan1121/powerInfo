@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title></title>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <script>
+    var jsVars = {
+        baseResUrl: "./",
+        version: new Date().getTime(),
+    };
+    </script>
+    <link rel="stylesheet/less" type="text/css" href="css/style.css" />
+    <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
+    <link rel="stylesheet/less" type="text/css" href="css/main.less" />
+    <script type="text/JavaScript" src="./js/lib/cdnServiceList.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/less.js/2.7.2/less.min.js"></script>
+</head>
+
+<body>
+    <div class="headerBar">
+        <div class="headerLeft">
+            <a style="" href="#">台灣發電廠及時運轉圖</a>
+        </div>
+
+        <div class="headerRight">
+            <div class="headerFun">
+                <button type="button" class="btn btn-default btn-xs setting">
+                    <i class="material-icons">&#xE8B8;</i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div class="container-fluid">
+        <div class="row filterBox" style="display:none;">
+
+        </div>
+    </div>
+    <div class="container-fluid pagerBox">
+    </div>
+</body>
+<script type="text/JavaScript" src="./js/lib/vendor/require/require.js" data-main='./js/app/index.js'></script>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+</html>

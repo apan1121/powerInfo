@@ -1,0 +1,54 @@
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel"><%=plantInfo.fullName%></h4>
+            </div>
+            <div class="modal-body">
+                <div class="imgLiquidFill" style="height: 300px;">
+                    <img src="<%=plantInfo.photo%>" alt="<%=plantInfo.fullName%>" style="display: none;">
+                </div>
+
+                <div>
+                    <table style="width: 100%">
+                        <tr>
+                            <td>名稱</td>
+                            <td><%=plantInfo.name%></td>
+                        </tr>
+                        <tr>
+                            <td>全名</td>
+                            <td><%=plantInfo.fullName%></td>
+                        </tr>
+                        <tr>
+                            <td>地點</td>
+                            <td><%=plantInfo.location%></td>
+                        </tr>
+                        <tr>
+                            <td>所屬單位</td>
+                            <td><%=plantInfo.org%></td>
+                        </tr>
+                        <tr>
+                            <td>總發電量</td>
+                            <td><%=plantInfo.capacity%> MW</td>
+                        </tr>
+                        <tr>
+                            <td>機組數量</td>
+                            <td><%=plantInfo.amount%></td>
+                        </tr>
+                        <tr>
+                            <td>發電類型</td>
+                            <td><%=plantInfo.type.map(function(item){
+                                return lang[item];
+                            }).join("、")%></td>
+                        </tr>
+                        <tr>
+                            <td>狀態</td>
+                            <td><%=lang[plantInfo.status]%></td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

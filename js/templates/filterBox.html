@@ -1,0 +1,39 @@
+<form>
+    <div class="col-xs-12">
+        <div class="form-group plantType">
+            <label for="type"><h4>查看電廠類型</h4></label>
+            <div>
+                <%_.each(filterItem.type, function(item){%>
+                <div class="col-xs-6 col-sm-3 col-md-2 col-lg-2">
+                    <label class="checkbox-inline" style="margin-bottom: 5px;">
+                      <input type="checkbox" name="plantType" value="<%=item%>" <%=(selectData.plantType.indexOf(item)>=0?'checked':'')%>> <%=lang[item]%>
+                    </label>
+                </div>
+                <%});%>
+            </div>
+        </div>
+    </div>
+    <div class="col-xs-12">
+        <div class="form-group groupFlag">
+            <label for="type"><h4>分類</h4></label>
+            <select class="form-control" name="groupType">
+                <% _.each(groupTypeSelect, function(val, key){%>
+                    <option value="<%=key%>" <%=selectData.groupType == key? "selected":""%>><%=val%></option>
+                <%})%>
+            </select>
+        </div>
+    </div>
+    <div class="col-xs-12">
+        <div class="form-group">
+            <label for="type"><h4>排序方式</h4></label>
+            <select class="form-control" name="sortType">
+                <% _.each(sortTypeSelect, function(val, key){ %>
+                    <option value="<%=key%>" <%=selectData.sortType == key? "selected":""%>><%=val%></option>
+                <%})%>
+            </select>
+        </div>
+    </div>
+    <div class="col-xs-12">
+        <button class="btn btn-primary btn-sm resetBtn">重新排序</button>
+    </div>
+</form>

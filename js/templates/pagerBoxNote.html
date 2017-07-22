@@ -1,0 +1,28 @@
+<table>
+    <tr>
+        <td>類型：</td>
+        <td>
+            <%=lang[result.type]%>
+        </td>
+    </tr>
+    <tr>
+        <td>可發電量：</td>
+        <td>
+            <%=result.capacity%> MW
+        </td>
+    </tr>
+    <tr>
+        <td>目前電量：</td>
+        <td>
+            <%=result.used%> MW
+        </td>
+    </tr>
+    <% if (["",null,undefined].indexOf(result.note) == -1) {%>
+    <tr>
+        <td>備註：</td>
+        <td>
+            <%=result.note%>
+        </td>
+    </tr>
+    <% }%>
+</table>

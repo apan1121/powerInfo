@@ -1,0 +1,49 @@
+<% console.log(groupResult);%>
+<div class="row " style="">
+    <div class="col-xs-12 col-lg-6">
+        <div>
+            <%=totalUsed.toFixed(2)%> MW / <%=totalCapacity.toFixed(2)%> MW (<%=((totalUsed/totalCapacity)*100).toFixed(2)%>%);
+        </div>
+    </div>
+    <div class="col-xs-12 col-lg-6">
+        <div class="text-right">最後更新時間: <%=getTime%></div>
+    </div>
+</div>
+<% _.each(groupResult, function(result, groupName){
+
+    var operatingTimeRatio = ((result.used/result.capacity)*100).toFixed(2);
+    var operatingTimeRatioLabel = "label-default";
+    if (operatingTimeRatio > 80) {
+        operatingTimeRatioLabel = "label-danger";
+    }
+    operatingTimeRatio = "<span class='label "+operatingTimeRatioLabel+"'>"+operatingTimeRatio+"%</span>";
+%>
+<div class="row " style="">
+    <div class="col-xs-12">
+        <h4><%=groupName%> <small><%=result.used.toFixed(2)%>MW / 總發電:<%=result.capacity.toFixed(2)%>MW <%=operatingTimeRatio%></small></h4>
+    </div>
+    <div class="col-xs-12">
+        <div class="row">
+            <% _.each(result.info, function(result_one){%>
+            <div class="col-xs-6 col-sm-4 col-md-3 col-lg-2">
+                <div class="plantBox" data-mappingname="<%=result_one.mappingName%>" data-gov="<%=result_one.gov%>" data-note="<%=result_one.note%>" data-type="<%=result_one.type%>" data-toggle="popover" data-title="備註" data-content="<%=result_one.showNote%>">
+                    <div class="circle" data-thickness="5" data-size="130" data-value="<%=result_one.percent%>">
+                        <div class="percent"><%=result_one.percent%>%</div>
+                        <div class="icon <%=result_one.icon%>"></div>
+                    </div>
+                    <div class="name">
+                        <h5><%=result_one.name%></h5>
+                    </div>
+                    <div class="fullName <%=(result_one.fullName!=''?'plantIntro':'')%>">
+                        <%=result_one.fullName || "--"%>
+                    </div>
+                    <div class="info">
+                        <%=result_one.used%>MW / <%=result_one.capacity%>MW
+                    </div>
+                </div>
+            </div>
+            <%})%>
+        </div>
+    </div>
+</div>
+<%})%>
