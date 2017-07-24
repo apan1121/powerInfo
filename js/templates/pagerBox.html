@@ -1,16 +1,36 @@
 <div class="row " style="">
     <div class="col-xs-12 col-lg-6">
-        <div>
-            發電量(已/可):<%=totalUsed.toFixed(2)%> MW / <%=totalCapacity.toFixed(2)%> MW (<%=((totalUsed/totalCapacity)*100).toFixed(2)%>%)
-        </div>
-    </div>
-    <div class="col-xs-12 col-lg-6">
         <div class="text-right">最後更新時間: <%=getTime%></div>
     </div>
+    <div class="col-xs-12 col-lg-6">
+        <div class="row">
+            <div class="col-xs-12 col-sm-6 col-md-4 col-md-3">
+                已發電量: <%=totalUsed.toFixed(2)%> MW
+            </div>
+            <div class="col-xs-12 col-sm-6 col-md-4 col-md-3">
+                可發電量: <%=totalCapacity.toFixed(2)%> MW
+            </div>
+            <div class="col-xs-12 col-sm-6 col-md-4 col-md-3">
+                運轉率: <%=((totalUsed/totalCapacity)*100).toFixed(2)%>%
+            </div>
+        </div>
+        <div class="row" style="background: #FCC">
+            <div class="col-xs-12 col-sm-6 col-md-4 col-md-3">
+                歲修電量：<%=totalFix.toFixed(2)%> MW
+            </div>
+            <div class="col-xs-12 col-sm-6 col-md-4 col-md-3">
+                環保限轉電量：<%=totalLimit.toFixed(2)%> MW
+            </div>
+        </div>
+    </div>
+
 </div>
 <% _.each(groupResult, function(result, groupName){
 
     var operatingTimeRatio = ((result.used/result.capacity)*100).toFixed(2);
+    if (isNaN(operatingTimeRatio)) {
+        operatingTimeRatio = 0;
+    }
     var operatingTimeRatioLabel = "label-default";
     if (operatingTimeRatio > 80) {
         operatingTimeRatioLabel = "label-danger";
@@ -19,7 +39,18 @@
 %>
 <div class="row " style="">
     <div class="col-xs-12">
-        <h4><%=groupName%> <small>發電量(已/可):<%=result.used.toFixed(2)%>MW / <%=result.capacity.toFixed(2)%>MW <%=operatingTimeRatio%></small></h4>
+        <h4>
+            <%=groupName%>
+        </h4>
+    </div>
+    <div class="col-xs-12">
+        發電量(已/可):<%=result.used.toFixed(2)%>MW / <%=result.capacity.toFixed(2)%>MW <%=operatingTimeRatio%>
+        <% if (result.fix > 0) {%>
+        <br> 歲修: <%=result.fix.toFixed(2)%>MW
+        <% }%>
+        <% if (result.limit > 0) {%>
+        <br> 環保限轉: <%=result.limit.toFixed(2)%>MW
+        <% }%>
     </div>
     <div class="col-xs-12">
         <div class="row">

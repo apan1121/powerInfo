@@ -157,6 +157,8 @@ define([
             var groupResult = {};
             var totalCapacity = 0;
             var totalUsed = 0;
+            var totalLimit = 0;
+            var totalFix = 0;
             _.each(result, function(result_one) {
                 var groupKey = "";
                 switch (that.selectData.groupType) {
@@ -214,25 +216,47 @@ define([
                 }
 
                 result_one.fullName = "";
-                if (["",null,undefined].indexOf(powerPlant[result_one.mappingName]) == -1) {
+                if (["", null, undefined].indexOf(powerPlant[result_one.mappingName]) == -1) {
                     result_one.fullName = powerPlant[result_one.mappingName].fullName;
                 }
 
                 result_one.icon = icon;
                 if (["", null, undefined].indexOf(groupResult[groupKey]) >= 0) {
-                    groupResult[groupKey] = { used: 0, capacity: 0, info: [] };
+                    groupResult[groupKey] = { used: 0, capacity: 0, fix: 0, limit: 0, info: [] };
                 }
-                groupResult[groupKey].used += result_one.used;
-                groupResult[groupKey].capacity += result_one.capacity;
-                totalCapacity += result_one.capacity;
-                totalUsed += result_one.used;
+
+                switch (result_one.status) {
+                    case "limit":
+                        groupResult[groupKey].limit += result_one.capacity;
+                        totalLimit += result_one.capacity;
+                        break;
+                    case "fix":
+                        groupResult[groupKey].fix += result_one.capacity;
+                        totalFix += result_one.capacity;
+                        break;
+                    default:
+                        groupResult[groupKey].used += result_one.used;
+                        groupResult[groupKey].capacity += result_one.capacity;
+                        totalCapacity += result_one.capacity;
+                        totalUsed += result_one.used;
+                        break;
+                }
+
+
 
                 result_one.showNote = that.templates.PagerBoxNote({ lang: that.params.lang, result: result_one });
                 result_one.showNote = that.escapeHtml(result_one.showNote);
                 groupResult[groupKey].info.push(result_one);
             });
 
-            this.$el.find(".pagerBox").html(that.templates.PagerBox({ getTime: that.params.powerInfo.getTime, totalCapacity: totalCapacity, totalUsed: totalUsed, groupResult: groupResult }));
+            this.$el.find(".pagerBox").html(that.templates.PagerBox({
+                getTime: that.params.powerInfo.getTime,
+                totalCapacity: totalCapacity,
+                totalUsed: totalUsed,
+                totalLimit: totalLimit,
+                totalFix: totalFix,
+                groupResult: groupResult
+            }));
 
             this.$el.find(".pagerBox").find('[data-toggle="popover"]').popover({
                 html: true,
@@ -247,18 +271,18 @@ define([
                 }
             });
 
-            this.$el.find(".pagerBox").find(".plantIntro").bind("click", function(){
+            this.$el.find(".pagerBox").find(".plantIntro").bind("click", function() {
 
 
                 var plantInfo = powerPlant[$(this).parents(".plantBox").data("mappingname")];
                 console.log(plantInfo);
 
-                var plantInfoModal = $(that.templates.PlantInfoModal({plantInfo: plantInfo, lang: that.params.lang}));
-                plantInfoModal.bind("shown.bs.modal", function(){
+                var plantInfoModal = $(that.templates.PlantInfoModal({ plantInfo: plantInfo, lang: that.params.lang }));
+                plantInfoModal.bind("shown.bs.modal", function() {
                     that.$el.find(".pagerBox").find('[data-toggle="popover"]').popover("hide");
                     that.$el.find(".imgLiquidFill").imgLiquid();
                 })
-                plantInfoModal.bind("hidden.bs.modal", function(){
+                plantInfoModal.bind("hidden.bs.modal", function() {
                     plantInfoModal.remove();
                 });
                 plantInfoModal.modal("show");

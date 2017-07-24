@@ -31,6 +31,13 @@ define([
                     item.used = parseFloat(item.used);
                 }
 
+                item.status = "online";
+                if (item.note.indexOf("修") >= 0 && item.note.indexOf("部分") == -1) {
+                    item.status = "fix";
+                } else if (item.note.indexOf("環保限制") >= 0) {
+                    item.status = "limit";
+                }
+
                 item.sn = key;
                 return item;
             });
