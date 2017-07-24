@@ -50,7 +50,27 @@ $getTime = "";
 if (!empty($data)) {
     $getTime = $data[""];
     $aaData = $data["aaData"];
-    $elecInfo = array_map(function($item) use ($mappingNameStorage){
+
+    $totalCapacity = 0;
+    $totalUsed = 0;
+    $totalLimit = 0;
+    $totalFix = 0;
+
+    $totalUsedType = [
+        "nuclear" => 0,
+        "coal" => 0,
+        "co-gen" => 0,
+        "lng" =>0,
+        "oil" =>0,
+        "diesel" => 0,
+        "hydro" => 0,
+        "wind" => 0,
+        "solar" => 0,
+        "pumping gen" => 0,
+        "pumping load" => 0,
+    ];
+
+    $elecInfo = array_map(function($item) use ($mappingNameStorage, &$totalCapacity, &$totalUsed, &$totalLimit, &$totalFix, &$totalUsedType){
         $elecData = [
             "type" => "",
             "name" => "",
@@ -59,6 +79,7 @@ if (!empty($data)) {
             "used" => "",
             "percent" => "",
             "gov"  => true,
+            "status" => "online",
             "note" => "",
         ];
 
@@ -73,8 +94,6 @@ if (!empty($data)) {
         if (!is_numeric($elecData["used"])) {
             $elecData["used"] = 0;
         }
-
-
 
         /* 移除所有網頁標籤 */
         $elecData["type"] = strip_tags($elecData["type"]);
@@ -137,6 +156,25 @@ if (!empty($data)) {
         }
         $elecData["percent"] = $elecData["percent"]."";
 
+        if (strpos($elecData["note"],"修") !== false && strpos($elecData["note"],"部分") === false) {
+            $elecData["status"] = "fix";
+        } else if (strpos($elecData["note"],"環保限制") !== false){
+            $elecData["status"] = "limit";
+        }
+
+        switch ($elecData["status"]) {
+            case "fix":
+                $totalFix += $elecData["capacity"];
+                break;
+            case "limit":
+                $totalLimit += $elecData["capacity"];
+                break;
+            default:
+                $totalCapacity += $elecData["capacity"];
+                $totalUsed += $elecData["used"] ;
+                $totalUsedType[$elecData["type"]] += $elecData["used"];
+                break;
+        }
 
         return $elecData;
     },$aaData);
@@ -152,8 +190,28 @@ if (!empty($data)) {
         "info" => $elecInfo
     ];
 
+
     save("log/powerInfo.log",$output);
     save("log/history/".str_replace(" ","/",str_replace(":","_",$getTime)).".log",$output);
+
+
+    // $totalCapacity = 0;
+    // $totalUsed = 0;
+    // $totalLimit = 0;
+    // $totalFix = 0;
+    list($date, $time) = explode(" ",$getTime);
+
+    $dateSummaryFile = "log/history/{$date}/summary.log";
+    $summaryData =  @json_decode(file_get_contents($dateSummaryFile),true) ;
+    if (empty($summaryData)) {
+        $summaryData = [];
+    }
+
+
+    $summaryData[$time] = compact("totalCapacity","totalUsed","totalLimit","totalFix", "totalUsedType");
+    save($dateSummaryFile, $summaryData);
+
+    // echo $getTime;exit();
 }
 
 

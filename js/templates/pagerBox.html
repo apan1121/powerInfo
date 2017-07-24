@@ -27,10 +27,11 @@
 </div>
 <% _.each(groupResult, function(result, groupName){
 
-    var operatingTimeRatio = ((result.used/result.capacity)*100).toFixed(2);
-    if (!_.isNumber(operatingTimeRatio)) {
-        operatingTimeRatio = 0;
+    var operatingTimeRatio = 0;
+    if (result.capacity > 0) {
+        operatingTimeRatio = ((result.used/result.capacity)*100).toFixed(2);
     }
+
     var operatingTimeRatioLabel = "label-default";
     if (operatingTimeRatio > 80) {
         operatingTimeRatioLabel = "label-danger";
@@ -44,13 +45,29 @@
         </h4>
     </div>
     <div class="col-xs-12">
-        發電量(已/可):<%=result.used.toFixed(2)%>MW / <%=result.capacity.toFixed(2)%>MW <%=operatingTimeRatio%>
-        <% if (result.fix > 0) {%>
-        <br> 歲修: <%=result.fix.toFixed(2)%>MW
+        <div class="row">
+            <div class="col-xs-12">
+                發電量(已/可):<%=result.used.toFixed(2)%>MW / <%=result.capacity.toFixed(2)%>MW <%=operatingTimeRatio%>
+            </div>
+        </div>
+
+
+        <% if (result.fix > 0 || result.limit > 0) {%>
+
+        <div class="row" style="background: #FCC">
+            <% if (result.fix > 0) {%>
+            <div class="col-xs-12">
+                歲修: <%=result.fix.toFixed(2)%>MW
+            </div>
+            <% }%>
+            <% if (result.limit > 0) {%>
+            <div class="col-xs-12">
+                環保限轉: <%=result.limit.toFixed(2)%>MW
+            </div>
+            <% }%>
+        </div>
         <% }%>
-        <% if (result.limit > 0) {%>
-        <br> 環保限轉: <%=result.limit.toFixed(2)%>MW
-        <% }%>
+
     </div>
     <div class="col-xs-12">
         <div class="row">
