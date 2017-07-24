@@ -1,17 +1,17 @@
 <div class="row " style="">
     <div class="col-xs-12 col-lg-6">
-        <div class="text-right">最後更新時間: <%=getTime%></div>
+        <div class="text-right">最後更新時間：<%=getTime%></div>
     </div>
     <div class="col-xs-12 col-lg-6">
         <div class="row">
             <div class="col-xs-12 col-sm-6 col-md-4 col-md-3">
-                已發電量: <%=totalUsed.toFixed(2)%> MW
+                已發電量：<%=totalUsed.toFixed(2)%> MW
             </div>
             <div class="col-xs-12 col-sm-6 col-md-4 col-md-3">
-                可發電量: <%=totalCapacity.toFixed(2)%> MW
+                可發電量：<%=totalCapacity.toFixed(2)%> MW
             </div>
             <div class="col-xs-12 col-sm-6 col-md-4 col-md-3">
-                運轉率: <%=((totalUsed/totalCapacity)*100).toFixed(2)%>%
+                運轉率：<%=((totalUsed/totalCapacity)*100).toFixed(2)%>%
             </div>
         </div>
         <div class="row" style="background: #FCC">
@@ -47,22 +47,19 @@
     <div class="col-xs-12">
         <div class="row">
             <div class="col-xs-12">
-                發電量(已/可):<%=result.used.toFixed(2)%>MW / <%=result.capacity.toFixed(2)%>MW <%=operatingTimeRatio%>
+                發電量(已/可)：<%=result.used.toFixed(2)%>MW / <%=result.capacity.toFixed(2)%>MW <%=operatingTimeRatio%>
             </div>
         </div>
-
-
         <% if (result.fix > 0 || result.limit > 0) {%>
-
         <div class="row" style="background: #FCC">
             <% if (result.fix > 0) {%>
             <div class="col-xs-12">
-                歲修: <%=result.fix.toFixed(2)%>MW
+                歲修：<%=result.fix.toFixed(2)%>MW
             </div>
             <% }%>
             <% if (result.limit > 0) {%>
             <div class="col-xs-12">
-                環保限轉: <%=result.limit.toFixed(2)%>MW
+                環保限轉：<%=result.limit.toFixed(2)%>MW
             </div>
             <% }%>
         </div>
