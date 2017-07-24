@@ -28,7 +28,7 @@
 <% _.each(groupResult, function(result, groupName){
 
     var operatingTimeRatio = ((result.used/result.capacity)*100).toFixed(2);
-    if (_.isNumber(operatingTimeRatio)) {
+    if (!_.isNumber(operatingTimeRatio)) {
         operatingTimeRatio = 0;
     }
     var operatingTimeRatioLabel = "label-default";
