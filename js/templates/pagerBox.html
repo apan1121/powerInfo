@@ -1,8 +1,7 @@
-<% console.log(groupResult);%>
 <div class="row " style="">
     <div class="col-xs-12 col-lg-6">
         <div>
-            <%=totalUsed.toFixed(2)%> MW / <%=totalCapacity.toFixed(2)%> MW (<%=((totalUsed/totalCapacity)*100).toFixed(2)%>%);
+            發電量(已/可):<%=totalUsed.toFixed(2)%> MW / <%=totalCapacity.toFixed(2)%> MW (<%=((totalUsed/totalCapacity)*100).toFixed(2)%>%)
         </div>
     </div>
     <div class="col-xs-12 col-lg-6">
@@ -20,7 +19,7 @@
 %>
 <div class="row " style="">
     <div class="col-xs-12">
-        <h4><%=groupName%> <small><%=result.used.toFixed(2)%>MW / 總發電:<%=result.capacity.toFixed(2)%>MW <%=operatingTimeRatio%></small></h4>
+        <h4><%=groupName%> <small>發電量(已/可):<%=result.used.toFixed(2)%>MW / <%=result.capacity.toFixed(2)%>MW <%=operatingTimeRatio%></small></h4>
     </div>
     <div class="col-xs-12">
         <div class="row">
