@@ -55,6 +55,7 @@ if (!empty($data)) {
     $totalUsed = 0;
     $totalLimit = 0;
     $totalFix = 0;
+    $totalBreak = 0;
 
     $totalUsedType = [
         "nuclear" => 0,
@@ -70,7 +71,7 @@ if (!empty($data)) {
         "pumping load" => 0,
     ];
 
-    $elecInfo = array_map(function($item) use ($mappingNameStorage, &$totalCapacity, &$totalUsed, &$totalLimit, &$totalFix, &$totalUsedType){
+    $elecInfo = array_map(function($item) use ($mappingNameStorage, &$totalCapacity, &$totalUsed, &$totalLimit, &$totalFix, &$totalBreak, &$totalUsedType){
         $elecData = [
             "type" => "",
             "name" => "",
@@ -156,10 +157,13 @@ if (!empty($data)) {
         }
         $elecData["percent"] = $elecData["percent"]."";
 
+
         if (strpos($elecData["note"],"修") !== false && strpos($elecData["note"],"部分") === false) {
             $elecData["status"] = "fix";
         } else if (strpos($elecData["note"],"環保限制") !== false){
             $elecData["status"] = "limit";
+        } else if (strpos($elecData["note"],"故障") !== false) {
+            $elecData["status"] = "break";
         }
 
         switch ($elecData["status"]) {
@@ -168,6 +172,9 @@ if (!empty($data)) {
                 break;
             case "limit":
                 $totalLimit += $elecData["capacity"];
+                break;
+            case "break":
+                $totalBreak += $elecData["capacity"];
                 break;
             default:
                 $totalCapacity += $elecData["capacity"];
@@ -208,7 +215,7 @@ if (!empty($data)) {
     }
 
 
-    $summaryData[$date." ".$time] = compact("totalCapacity","totalUsed","totalLimit","totalFix", "totalUsedType");
+    $summaryData[$date." ".$time] = compact("totalCapacity","totalUsed","totalLimit","totalFix", "totalBreak", "totalUsedType");
     save($dateSummaryFile, $summaryData);
 
     echo $date;
