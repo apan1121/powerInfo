@@ -50,6 +50,7 @@
     background: #eee;
     border-radius: 5px;
     margin-bottom: 10px;
+    color: #000;
     .circle {
         margin: 0 auto;
         height: 150px;
@@ -88,5 +89,57 @@
     }
     .info{
          text-align: center;
+    }
+
+    &.fix{
+        .plantContent{
+            opacity: 0.3;
+        }
+        &:after{
+            content: "修";
+            color: #C00;
+            font-weight: 900;
+            border:5px solid #C00;
+            border-radius: 50%;
+            padding: 20px;
+            font-size: 50px;
+            width: 100px;
+            height: 100px;
+            display: inline-block;
+            text-align: center;
+            line-height: 50px;
+            position: absolute;
+            top: 50%;
+            left: 40%;
+            transform: rotate(25deg) translateX(-50%) translateY(-50%);
+            text-shadow: 0px 0px 10px rgba(0,0,0,0.5);
+            box-shadow: 0px 0px 10px rgba(0,0,0,0.5);
+        }
+    }
+
+    &.limit{
+        .plantContent{
+            opacity: 0.3;
+        }
+        &:after{
+            content: "修";
+            color: #0A0;
+            font-weight: 900;
+            border:5px solid #0A0;
+            border-radius: 50%;
+            padding: 20px;
+            font-size: 50px;
+            width: 100px;
+            height: 100px;
+            display: inline-block;
+            text-align: center;
+            line-height: 50px;
+            position: absolute;
+            top: 50%;
+            left: 40%;
+            transform: rotate(25deg) translateX(-50%) translateY(-50%);
+            text-shadow: 0px 0px 10px rgba(0,0,0,0.5);
+            box-shadow: 0px 0px 10px rgba(0,0,0,0.5);
+        }
     }
 }

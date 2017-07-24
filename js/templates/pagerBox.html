@@ -56,19 +56,21 @@
         <div class="row">
             <% _.each(result.info, function(result_one){%>
             <div class="col-xs-6 col-sm-4 col-md-3 col-lg-2">
-                <div class="plantBox" data-mappingname="<%=result_one.mappingName%>" data-gov="<%=result_one.gov%>" data-note="<%=result_one.note%>" data-type="<%=result_one.type%>" data-toggle="popover" data-title="備註" data-content="<%=result_one.showNote%>">
-                    <div class="circle" data-thickness="5" data-size="130" data-value="<%=result_one.percent%>">
-                        <div class="percent"><%=result_one.percent%>%</div>
-                        <div class="icon <%=result_one.icon%>"></div>
-                    </div>
-                    <div class="name">
-                        <h5><%=result_one.name%></h5>
-                    </div>
-                    <div class="fullName <%=(result_one.fullName!=''?'plantIntro':'')%>">
-                        <%=result_one.fullName || "--"%>
-                    </div>
-                    <div class="info">
-                        <%=result_one.used%>MW / <%=result_one.capacity%>MW
+                <div class="plantBox <%=result_one.status%>" data-mappingname="<%=result_one.mappingName%>" data-gov="<%=result_one.gov%>" data-note="<%=result_one.note%>" data-type="<%=result_one.type%>" data-toggle="popover" data-title="備註" data-content="<%=result_one.showNote%>">
+                    <div class="plantContent">
+                        <div class="circle" data-thickness="5" data-size="130" data-value="<%=result_one.percent%>">
+                            <div class="percent"><%=result_one.percent%>%</div>
+                            <div class="icon <%=result_one.icon%>"></div>
+                        </div>
+                        <div class="name">
+                            <h5><%=result_one.name%></h5>
+                        </div>
+                        <div class="fullName <%=(result_one.fullName!=''?'plantIntro':'')%>">
+                            <%=result_one.fullName || "--"%>
+                        </div>
+                        <div class="info">
+                            <%=result_one.used%>MW / <%=result_one.capacity%>MW
+                        </div>
                     </div>
                 </div>
             </div>
