@@ -208,8 +208,11 @@ if (!empty($data)) {
     }
 
 
-    $summaryData[$time] = compact("totalCapacity","totalUsed","totalLimit","totalFix", "totalUsedType");
+    $summaryData[$date." ".$time] = compact("totalCapacity","totalUsed","totalLimit","totalFix", "totalUsedType");
     save($dateSummaryFile, $summaryData);
+
+    echo $date;
+    echo date("Y-m-d",strtotime($date)-86400);
 
     // echo $getTime;exit();
 }
