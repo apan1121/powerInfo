@@ -1,6 +1,6 @@
 define({
     "root": {
-        "coal": "燃媒",
+        "coal": "燃煤",
         "nuclear": "核能",
         "co-gen": "汽電共生",
         "lng": "天然氣",
