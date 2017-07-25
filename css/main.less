@@ -1,3 +1,6 @@
+body{
+    background: #f7f7f7;
+}
 .navbar {
     .nav {
         button {
@@ -7,7 +10,6 @@
         }
     }
 }
-
 .headerBar {
     width: 100%;
     padding: 5px;
@@ -43,14 +45,27 @@
     padding: 5px;
     padding-bottom: 20px;
 }
-
+.card-list-wrap{
+    padding: 20px 0;
+}
+.info-detail{
+    line-height: 1.8;
+}
+.warning-text{
+    padding: 4px;
+    background-color: #e74c3c;
+    color: white;
+    border-radius: 3px;
+}
 .plantBox {
     margin: 0 auto;
-    border: 1px solid #ddd;
-    background: #eee;
+    // border: 1px solid #ddd;
+    padding: 10px 0 20px;
+    background: white;
     border-radius: 5px;
     margin-bottom: 10px;
-    color: #000;
+    color: #333;
+    box-shadow: 0 6px 15px rgba(36,37,38,0.08);
     .circle {
         margin: 0 auto;
         height: 150px;
@@ -82,7 +97,7 @@
     .fullName {
         text-align: center;
         &.plantIntro{
-            color: #000;
+            color: #333;
             font-weight: 900;
             cursor: pointer;
         }

@@ -1,4 +1,4 @@
-<div class="row " style="">
+<div class="row card-list-wrap">
     <div class="col-xs-12 col-lg-6">
         <div class="text-right">最後更新時間：<%=getTime%></div>
     </div>
@@ -14,9 +14,9 @@
                 運轉率：<%=((totalUsed/totalCapacity)*100).toFixed(2)%>%
             </div>
         </div>
-        <div class="row" style="background: #FCC">
+        <div class="row">
             <div class="col-xs-12 col-sm-6 col-md-4 col-md-3">
-                歲修電量：<%=totalFix.toFixed(2)%> MW
+                <span class="warning-text">歲修電量：<%=totalFix.toFixed(2)%> MW</span>
             </div>
             <div class="col-xs-12 col-sm-6 col-md-4 col-md-3">
                 環保限轉電量：<%=totalLimit.toFixed(2)%> MW
@@ -38,28 +38,28 @@
     }
     operatingTimeRatio = "<span class='label "+operatingTimeRatioLabel+"'>"+operatingTimeRatio+"%</span>";
 %>
-<div class="row " style="">
-    <div class="col-xs-12">
+<div class="row">
+    <div class="col-xs-12 info-detail">
         <h4>
             <%=groupName%>
         </h4>
     </div>
-    <div class="col-xs-12">
+    <div class="col-xs-12 info-detail">
         <div class="row">
             <div class="col-xs-12">
                 發電量(已/可)：<%=result.used.toFixed(2)%>MW / <%=result.capacity.toFixed(2)%>MW <%=operatingTimeRatio%>
             </div>
         </div>
         <% if (result.fix > 0 || result.limit > 0) {%>
-        <div class="row" style="background: #FCC">
+        <div class="row">
             <% if (result.fix > 0) {%>
             <div class="col-xs-12">
-                歲修：<%=result.fix.toFixed(2)%>MW
+                <span class="warning-text">歲修：<%=result.fix.toFixed(2)%>MW</span>
             </div>
             <% }%>
             <% if (result.limit > 0) {%>
             <div class="col-xs-12">
-                環保限轉：<%=result.limit.toFixed(2)%>MW
+                <span class="warning-text">環保限轉：<%=result.limit.toFixed(2)%>MW</span>
             </div>
             <% }%>
         </div>
@@ -67,7 +67,7 @@
 
     </div>
     <div class="col-xs-12">
-        <div class="row">
+        <div class="row card-list-wrap">
             <% _.each(result.info, function(result_one){%>
             <div class="col-xs-6 col-sm-4 col-md-3 col-lg-2">
                 <div class="plantBox <%=result_one.status%>" data-mappingname="<%=result_one.mappingName%>" data-gov="<%=result_one.gov%>" data-note="<%=result_one.note%>" data-type="<%=result_one.type%>" data-toggle="popover" data-title="備註" data-content="<%=result_one.showNote%>">

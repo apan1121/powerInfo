@@ -298,20 +298,20 @@ define([
             var that = this;
             that.$el.on("circle:set", ".circle", function(e) {
                 var value = $(this).data("value");
-                var color = "#eee";
+                var color = "#dedede";
                 if (!isNaN(value)) {
                     if (value > 90) {
-                        color = "#F00";
+                        color = "#e74c3c";
                     } else if (value <= 90 && value > 80) {
-                        color = "#990";
+                        color = "#e67e22";
                     } else if (value < 80 && value >= 60) {
-                        color = "#0f0";
+                        color = "#f1c40f";
                     } else if (value < 60 && value >= 40) {
-                        color = "#099";
+                        color = "#2ecc71";
                     } else if (value < 40 && value >= 10) {
-                        color = "#00f";
+                        color = "#1abc9c";
                     } else if (value < 10) {
-                        color = "#009";
+                        color = "#3498db";
                     }
                     value = value / 100;
                 } else {
