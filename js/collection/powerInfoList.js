@@ -12,7 +12,6 @@ define([
     var powerInfoData = powerInfoDataLog.info;
     var PowerInfoList = Backbone.Collection.extend({
         model: PowerInfo,
-
         initialize: function (data) {
             powerInfoData = powerInfoData.map(function(item, key){
                 if (isNaN(item.percent)){

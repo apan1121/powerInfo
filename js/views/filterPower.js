@@ -207,8 +207,10 @@ define([
                         icon = "icon-wind";
                         break;
                     case "pumping gen":
+                        icon = "icon-pumping_gen";
+                        break;
                     case "pumping load":
-                        icon = "icon-pumping";
+                        icon = "icon-pumping_load";
                         break;
                     case "solar":
                         icon = "icon-solar";

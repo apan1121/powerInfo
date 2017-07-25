@@ -1,10 +1,10 @@
 @font-face {
   font-family: 'icomoon';
-  src:  url('fonts/icomoon.eot?5zoo3c');
-  src:  url('fonts/icomoon.eot?5zoo3c#iefix') format('embedded-opentype'),
-    url('fonts/icomoon.ttf?5zoo3c') format('truetype'),
-    url('fonts/icomoon.woff?5zoo3c') format('woff'),
-    url('fonts/icomoon.svg?5zoo3c#icomoon') format('svg');
+  src:  url('fonts/icomoon.eot?9qgzxm');
+  src:  url('fonts/icomoon.eot?9qgzxm#iefix') format('embedded-opentype'),
+    url('fonts/icomoon.ttf?9qgzxm') format('truetype'),
+    url('fonts/icomoon.woff?9qgzxm') format('woff'),
+    url('fonts/icomoon.svg?9qgzxm#icomoon') format('svg');
   font-weight: normal;
   font-style: normal;
 }
@@ -24,10 +24,13 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+.icon-pumping_load:before {
+  content: "\e90a";
+}
 .icon-solar:before {
   content: "\e900";
 }
-.icon-pumping:before {
+.icon-pumping_gen:before {
   content: "\e901";
 }
 .icon-wind:before {
@@ -45,7 +48,7 @@
 .icon-co_gen:before {
   content: "\e906";
 }
-.icon-lng:before {
+.icon-128:before {
   content: "\e907";
 }
 .icon-coal:before {
