@@ -162,7 +162,7 @@ if (!empty($data)) {
             $elecData["status"] = "fix";
         } else if (strpos($elecData["note"],"環保限制") !== false){
             $elecData["status"] = "limit";
-        } else if (strpos($elecData["note"],"故障") !== false) {
+        } else if (strpos($elecData["note"],"故障") !== false && strpos($elecData["note"],"部分") === false) {
             $elecData["status"] = "break";
         }
 
