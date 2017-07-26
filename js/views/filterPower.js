@@ -58,6 +58,7 @@ define([
                     that.render();
                 } else {
                     that.$el.find(".filterBox").slideUp(function() {
+                        that.target.trigger("submit");
                         that.$el.find(".filterBox").empty();
                     });
                 }
@@ -99,8 +100,18 @@ define([
                 return false;
             });
 
+            var submitFlag = false;
+            target.find("input, select").bind("change", function() {
+                submitFlag = true;
+
+            });
+
             target.bind("submit", function(e) {
                 e.preventDefault();
+                if (!submitFlag) {
+                    return false;
+                }
+
                 that.selectData = $.extend({ plantType: [] }, $(this).serializeObject());
 
                 var plantType = that.selectData.plantType;
@@ -109,12 +120,15 @@ define([
                 } else if (typeof(plantType) == "string") {
                     plantType = [plantType];
                 }
+                that.$el.find(".filterBox").slideUp().empty();
 
                 that.selectData.plantType = plantType;
                 that.reset();
-                that.$el.find(".filterBox").slideUp().empty();
                 return false;
             });
+
+
+            that.target = target;
 
             that.$el.find(".filterBox").html(target);
 
@@ -288,8 +302,6 @@ define([
                     plantInfoModal.remove();
                 });
                 plantInfoModal.modal("show");
-
-
             });
 
             this.$el.find(".pagerBox .circle").trigger("circle:set");
