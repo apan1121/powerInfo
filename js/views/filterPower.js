@@ -137,6 +137,8 @@ define([
         reset: function() {
             var that = this;
 
+            that.params.app.mixpanel.track("search", that.selectData);
+
             that.params.powerInfo.comparator = function(model) {
                 var value = 0;
                 switch (that.selectData.sortType) {

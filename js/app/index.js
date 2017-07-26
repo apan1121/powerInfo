@@ -43,6 +43,10 @@ require([jsVars.baseResUrl + 'js/lib/common.js'], function(common) {
             },
             initialize: function(data) {
                 var that = this;
+                this.mixpanel = mixpanel;
+
+                this.mixpanel.track("index");
+
                 $.extend( that.params, data );
 
                 that.filterPower = new FilterPower({app: that, powerPlant: powerPlant, powerInfo: powerInfo, lang: lang});
