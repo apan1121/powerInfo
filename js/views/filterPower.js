@@ -123,6 +123,8 @@ define([
                 that.$el.find(".filterBox").slideUp().empty();
 
                 that.selectData.plantType = plantType;
+
+                that.params.app.mixpanel.track("search", that.selectData);
                 that.reset();
                 return false;
             });
@@ -136,8 +138,6 @@ define([
         },
         reset: function() {
             var that = this;
-
-            that.params.app.mixpanel.track("search", that.selectData);
 
             that.params.powerInfo.comparator = function(model) {
                 var value = 0;
