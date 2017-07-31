@@ -4,40 +4,35 @@
     </div>
     <div class="col-xs-12 col-lg-6">
         <div class="row">
-            <div class="col-xs-12 col-sm-6 col-md-4 col-md-3">
-                已發電量：<%=totalUsed.toFixed(2)%> MW
+            <div class="col-xs-12 col-sm-6 col-md-4 ">
+                <%=lang.used%>：<%=nowSummary.used.toFixed(2)%> MW
             </div>
-            <div class="col-xs-12 col-sm-6 col-md-4 col-md-3">
-                可發電量：<%=totalCapacity.toFixed(2)%> MW
+            <div class="col-xs-12 col-sm-6 col-md-4">
+                <%=lang.cap%>：<%=nowSummary.cap.toFixed(2)%> MW
             </div>
-            <div class="col-xs-12 col-sm-6 col-md-4 col-md-3">
-                運轉率：<%=((totalUsed/totalCapacity)*100).toFixed(2)%>%
+            <div class="col-xs-12 col-sm-6 col-md-4 ">
+                <%=lang.used_percent%>：<%=((nowSummary.used/nowSummary.cap)*100).toFixed(2)%>%
             </div>
         </div>
         <div class="row">
-            <div class="col-xs-12 col-sm-6 col-md-4 col-md-3">
-                <span class="warning-text">歲修電量：<%=totalFix.toFixed(2)%> MW</span>
+            <div class="col-xs-12 col-sm-6 col-md-4">
+                <span class="warning-text statusType" rel="fix"> <%=lang.fix%>：<%=nowSummary.fix.toFixed(2)%> MW</span>
             </div>
-            <div class="col-xs-12 col-sm-6 col-md-4 col-md-3">
-                環保限轉電量：<%=totalLimit.toFixed(2)%> MW
+            <div class="col-xs-12 col-sm-6 col-md-4">
+               <span class="warning-text statusType" rel="limit"> <%=lang.limit%>：<%=nowSummary.limit.toFixed(2)%> MW</span>
+            </div>
+            <div class="col-xs-12 col-sm-6 col-md-4">
+               <span class="warning-text statusType" rel="break"> <%=lang.break%>：<%=nowSummary.break.toFixed(2)%> MW</span>
             </div>
         </div>
     </div>
-
 </div>
 <% _.each(groupResult, function(result, groupName){
-
     var operatingTimeRatio = 0;
-    if (result.capacity > 0) {
-        operatingTimeRatio = ((result.used/result.capacity)*100).toFixed(2);
+    if (result.cap > 0) {
+        operatingTimeRatio = ((result.used/result.cap)*100).toFixed(2);
     }
-
-    var operatingTimeRatioLabel = "label-default";
-    if (operatingTimeRatio > 80) {
-        operatingTimeRatioLabel = "label-danger";
-    }
-    operatingTimeRatio = "<span class='label "+operatingTimeRatioLabel+"'>"+operatingTimeRatio+"%</span>";
-%>
+    %>
 <div class="row">
     <div class="col-xs-12 info-detail">
         <h4>
@@ -47,30 +42,24 @@
     <div class="col-xs-12 info-detail">
         <div class="row">
             <div class="col-xs-12">
-                發電量(已/可)：<%=result.used.toFixed(2)%>MW / <%=result.capacity.toFixed(2)%>MW <%=operatingTimeRatio%>
+                <%=lang["used/cap"]%>：<%=result.used.toFixed(2)%>MW / <%=result.cap.toFixed(2)%>MW <span class="powerPercent" data-val="<%=operatingTimeRatio%>"><%=operatingTimeRatio%>%</span>
             </div>
         </div>
-        <% if (result.fix > 0 || result.limit > 0) {%>
         <div class="row">
-            <% if (result.fix > 0) {%>
-            <div class="col-xs-12">
-                <span class="warning-text">歲修：<%=result.fix.toFixed(2)%>MW</span>
-            </div>
-            <% }%>
-            <% if (result.limit > 0) {%>
-            <div class="col-xs-12">
-                <span class="warning-text">環保限轉：<%=result.limit.toFixed(2)%>MW</span>
-            </div>
-            <% }%>
+            <% _.each(["break","fix","limit"], function(key){%>
+                <% if (result[key] > 0) {%>
+                <div class="col-xs-3">
+                    <span class="warning-text statusType" rel="<%=key%>"><%=lang[key]%>：<%=result[key]%> MW</span>
+                </div>
+                <% }%>
+            <%})%>
         </div>
-        <% }%>
-
     </div>
     <div class="col-xs-12">
         <div class="row card-list-wrap">
             <% _.each(result.info, function(result_one){%>
             <div class="col-xs-6 col-sm-4 col-md-3 col-lg-2">
-                <div class="plantBox <%=result_one.status%>" data-mappingname="<%=result_one.mappingName%>" data-gov="<%=result_one.gov%>" data-note="<%=result_one.note%>" data-type="<%=result_one.type%>" data-toggle="popover" data-title="備註" data-content="<%=result_one.showNote%>">
+                <div class="plantBox <%=result_one.status%>" data-mappingname="<%=result_one.mappingName.join(',')%>" data-gov="<%=result_one.gov%>" data-note="<%=result_one.note%>" data-type="<%=result_one.type%>" data-toggle="popover" data-title="備註" data-content="<%=result_one.showNote%>">
                     <div class="plantContent">
                         <div class="circle" data-thickness="5" data-size="130" data-value="<%=result_one.percent%>">
                             <div class="percent"><%=result_one.percent%>%</div>
@@ -88,8 +77,8 @@
                     </div>
                 </div>
             </div>
-            <%})%>
+            <% });%>
         </div>
     </div>
 </div>
-<%})%>
+<% });%>

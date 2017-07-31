@@ -1,22 +1,22 @@
 //Load common code that includes config, then load the app logic for this page.
 require([jsVars.baseResUrl + 'js/lib/common.js'], function(common) {
     require([
-         'jquery',
+        'jquery',
         'underscore',
         'backbone',
 
         "i18n!nls/lang",
 
-        'collection/powerInfoList',
-        'collection/powerPlantList',
+        'collection/powerPlantInfo',
+        'collection/powerInfo',
 
-        'views/filterPower',
+        'views/filterBox',
+        'views/pagerBox'
 
 
-    ], function($, _, Backbone, lang, PowerInfo, PowerPlant, FilterPower) {
+    ], function($, _, Backbone, lang, PowerPlantInfo, PowerInfo, FilterBox, PagerBox) {
 
-        $.fn.serializeObject = function()
-        {
+        $.fn.serializeObject = function() {
             var o = {};
             var a = this.serializeArray();
             $.each(a, function() {
@@ -32,27 +32,46 @@ require([jsVars.baseResUrl + 'js/lib/common.js'], function(common) {
             return o;
         };
 
-        var powerInfo =  new PowerInfo();
-        var powerPlant =  new PowerPlant();
         var index_app = Backbone.View.extend({
             el: 'body',
             params: {
 
             },
-            templates: {
-            },
+            templates: {},
             initialize: function(data) {
                 var that = this;
-                this.mixpanel = mixpanel;
 
-                this.mixpanel.track("index");
+                that.mixpanel = mixpanel;
+                that.mixpanel.track("index");
 
-                $.extend( that.params, data );
+                var powerPlantInfo = new PowerPlantInfo({
+                    app: that,
+                    url: jsVars.baseUrl + "log/powerPlant.log"
+                });
+                var powerInfo = new PowerInfo({
+                    app: that,
+                    url: jsVars.baseUrl + "log/powerInfo.log",
+                    powerPlantInfo: powerPlantInfo,
+                });
 
-                that.filterPower = new FilterPower({app: that, powerPlant: powerPlant, powerInfo: powerInfo, lang: lang});
-            },
+                var filterBox = new FilterBox({
+                    app: that,
+                    powerInfo: powerInfo,
+                    lang: lang
+                });
+                var pagerBox = new PagerBox({
+                    app: that,
+                    powerInfo: powerInfo,
+                    powerPlantInfo: powerPlantInfo,
+                    filterBox: filterBox,
+                    lang: lang
+                });
+            }
         });
 
         new index_app();
+
+
+
     })
 });

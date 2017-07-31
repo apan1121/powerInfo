@@ -63,6 +63,7 @@ $transKeyword = [
         "第四核能發電廠" => "核四",
         "澎湖尖山"      => "尖山",
         "烏山頭水力發電廠" => "烏山頭",
+        "協和發電廠珠山分廠" => "珠山",
     ],
 
 
@@ -125,7 +126,7 @@ foreach($table as $_table) {
                 if (isset($transKeyword["elecMapping"][$_electInfo["name"]])) {
                     $_electInfo["nickName"] = $transKeyword["elecMapping"][$_electInfo["name"]];
                 } else {
-                    $shortName = str_replace(["發電廠","電廠"],"",$_electInfo["name"]);
+                    $shortName = str_replace(["發電廠","電廠","景山分廠"],"",$_electInfo["name"]);
                     $shortName = str_replace(["水力"],"",$shortName);
                     if (in_array($shortName, $transKeyword["elecShortName"])){
                         $_electInfo["nickName"] = $shortName;

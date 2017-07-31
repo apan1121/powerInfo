@@ -27,5 +27,15 @@ define({
         "test": "試俥中",
         "stop": "封存中",
 
+        "used": "已發電量",
+        "cap": "可發電量",
+        "used_percent": "運轉率",
+        "used/cap": "發電量(已/可)",
+
+        "break": "故障機組",
+        "limit": "限轉機組",
+        "fix": "待修機組",
+
+        "powerPlantIntro": "電廠介紹",
     }
 });

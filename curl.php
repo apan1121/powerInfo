@@ -102,7 +102,6 @@ if (!empty($data)) {
 
         if (preg_match("/(?P<mappingName>.{1,})#(?P<pid>[0-9]{1,})/", $tryMappingName, $match)) {
             $tryMappingName = trim($match["mappingName"]);
-            $tryMappingName = str_replace(["CC","Gas1","Gas2","Gas1&2","Gas3&4","&amp;"],"",$tryMappingName);
             $tryMappingName = htmlspecialchars($tryMappingName );
 
             if (isset($mappingNameStorage[$tryMappingName])) {
