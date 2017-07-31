@@ -151,7 +151,7 @@ define([
                         break;
                 }
 
-                result_one.icon = "icon-" + result_one.type.replace(" ", "_");
+                result_one.icon = "icon-" + result_one.type.replace(" ", "_").replace("-","_");
 
                 result_one.showNote = that.templates.PagerBoxNote({ lang: that.params.lang, result: result_one });
                 result_one.showNote = that.escapeHtml(result_one.showNote).replace(/\n/ig, "").replace(/\s{2,}/ig, "");
