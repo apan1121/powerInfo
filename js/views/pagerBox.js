@@ -197,12 +197,13 @@ define([
                     $(this).addClass("label label-danger");
                 } else if (val > 80) {
                     $(this).addClass("label label-warning");
+                } else if (val == 0) {
+                    $(this).addClass("label label-default");
                 } else if (val < 0) {
                     $(this).addClass("label label-info");
                 } else {
                     $(this).addClass("label label-success");
                 }
-                console.log(val);
             });
 
 
