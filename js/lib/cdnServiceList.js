@@ -17,4 +17,6 @@ var CDN = {
 
     jquery_circle_progress: ['lib/vendor/circle-progress.min'],
     jquery_imgLiquid: ['lib/vendor/imgLiquid-min'],
+
+    chartjs: ['//cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart'],
 }

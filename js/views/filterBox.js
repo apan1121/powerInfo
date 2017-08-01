@@ -20,7 +20,7 @@ define([
             $.extend(this.params, data);
             that.initFlag = true;
             that.setAction();
-            that.listenTo(that.params.powerInfo, "ajaxDone", that.setInfo);
+            that.listenTo(that.params.powerInfo, "powerInfoDone", that.setInfo);
         },
         setAction: function() {
             var that = this;

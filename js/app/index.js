@@ -4,18 +4,21 @@ require([jsVars.baseResUrl + 'js/lib/common.js'], function(common) {
         'jquery',
         'underscore',
         'backbone',
+        'moment',
 
         "i18n!nls/lang",
 
         'collection/powerPlantInfo',
         'collection/powerInfo',
+        'collection/summaryInfo',
 
         'views/filterBox',
-        'views/pagerBox'
+        'views/pagerBox',
+        'views/summaryBox',
 
 
-    ], function($, _, Backbone, lang, PowerPlantInfo, PowerInfo, FilterBox, PagerBox) {
-
+    ], function($, _, Backbone, Moment, lang, PowerPlantInfo, PowerInfo, SummaryInfo, FilterBox, PagerBox, SummaryBox) {
+        Moment.locale('zh-tw');
         $.fn.serializeObject = function() {
             var o = {};
             var a = this.serializeArray();
@@ -40,7 +43,7 @@ require([jsVars.baseResUrl + 'js/lib/common.js'], function(common) {
             templates: {},
             initialize: function(data) {
                 var that = this;
-
+                that.Moment = Moment;
                 that.mixpanel = mixpanel;
                 that.mixpanel.track("index");
 
@@ -54,6 +57,12 @@ require([jsVars.baseResUrl + 'js/lib/common.js'], function(common) {
                     powerPlantInfo: powerPlantInfo,
                 });
 
+                var summaryInfo = new SummaryInfo({
+                    app: that,
+                    url: jsVars.baseUrl + "log/summary.log",
+                    powerInfo: powerInfo,
+                });
+
                 var filterBox = new FilterBox({
                     app: that,
                     powerInfo: powerInfo,
@@ -65,6 +74,14 @@ require([jsVars.baseResUrl + 'js/lib/common.js'], function(common) {
                     powerPlantInfo: powerPlantInfo,
                     filterBox: filterBox,
                     lang: lang
+                });
+
+                var summaryBox = new SummaryBox({
+                    app: that,
+                    powerInfo: powerInfo,
+                    summaryInfo: summaryInfo,
+                    filterBox: filterBox,
+                    lang: lang,
                 });
             }
         });

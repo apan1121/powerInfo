@@ -114,6 +114,8 @@ requirejs.config({
 
         jquery_circle_progress: CDN.jquery_circle_progress,
         jquery_imgLiquid: CDN.jquery_imgLiquid,
+
+        chartjs: CDN.chartjs,
     }
 });
 
