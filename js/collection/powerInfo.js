@@ -54,7 +54,7 @@ define([
                 that.reset();
                 that.add(powerInfoData);
                 that.getTime = data.time;
-                that.trigger("ajaxDone");
+                that.trigger("powerInfoDone");
             }, 'JSON');
         }
     });

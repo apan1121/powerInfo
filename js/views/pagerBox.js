@@ -10,6 +10,8 @@ define([
 
     "jquery_circle_progress",
     "jquery_imgLiquid",
+
+    "chartjs",
 ], function($, _, Backbone, PagerBoxNote, PagerBox, PlantInfoBox) {
     var PagerBox = Backbone.View.extend({
         el: 'body',
@@ -151,12 +153,13 @@ define([
                         break;
                 }
 
-                result_one.icon = "icon-" + result_one.type.replace(" ", "_").replace("-","_");
+                result_one.icon = "icon-" + result_one.type.replace(" ", "_").replace("-", "_");
 
                 result_one.showNote = that.templates.PagerBoxNote({ lang: that.params.lang, result: result_one });
                 result_one.showNote = that.escapeHtml(result_one.showNote).replace(/\n/ig, "").replace(/\s{2,}/ig, "");
                 groupResult[groupKey].info.push(result_one);
             });
+
 
             // groupResult = that.sortObject(groupResult);
             Object.keys(groupResult).filter(function(key) {
@@ -191,7 +194,7 @@ define([
                 }
             });
 
-            this.$el.find(".powerPercent").each(function(){
+            this.$el.find(".powerPercent").each(function() {
                 var val = parseFloat($(this).data("val"));
                 if (val > 90) {
                     $(this).addClass("label label-danger");
@@ -230,6 +233,130 @@ define([
             });
 
             this.$el.find(".pagerBox .circle").trigger("circle:set");
+
+            that.setPeiData(groupResult, selectData.groupType);
+        },
+        setPeiData: function(groupResult, groupType) {
+            var that = this;
+            var pieObject = {};
+            _.each(groupResult, function(item, key) {
+                pieObject[key] = item.used;
+            });
+
+            var pie = [];
+            _.each(pieObject, function(item, key) {
+                pie.push({ group: key, value: parseFloat(item.toFixed(2)) });
+            });
+            pie = pie.sort(function(a, b) {
+                if (a.value > b.value)
+                    return -1;
+                if (a.value < b.value)
+                    return 1;
+                return 0;
+            });
+
+
+            var limit = 10;
+            switch (groupType) {
+                case "all":
+                    limit = 10;
+                    break;
+                case "name":
+                    limit = 15;
+                    break;
+                case "plantType":
+                    limit = 10;
+                    break;
+                case "location":
+                    limit = 10;
+                    break;
+            }
+            var newPie = [];
+            var other = 0;
+            for (var i = 0; i < pie.length; i++) {
+                if (i < limit) {
+                    newPie.push(pie[i]);
+                } else {
+                    other += pie[i].value;
+                }
+            }
+            if (other > 0) {
+                newPie.push({ group: "其他", value: parseFloat(other.toFixed(2)) });
+            }
+
+            var data = {
+                datasets: {
+                    data: [
+
+                    ],
+                },
+                labels: [],
+            };
+
+            _.each(newPie, function(newPie_one) {
+                data.labels.push(newPie_one.group);
+                data.datasets.data.push(newPie_one.value);
+            });
+
+            var config = {
+                type: 'pie',
+                data: {
+                    datasets: [{
+                        data: data.datasets.data,
+                        backgroundColor: [
+                            "#1abc9c",
+                            "#2ecc71",
+                            "#95a5a6",
+                            "#9b59b6",
+                            "#34495e",
+                            "#16a085",
+                            "#27ae60",
+                            "#2980b9",
+                            "#8e44ad",
+                            "#2c3e50",
+                            "#f1c40f",
+                            "#e67e22",
+                            "#e74c3c",
+                            "#ecf0f1",
+                            "#95a5a6",
+                            "#ecf0f1",
+                            "#95a5a6",
+                            "#d35400",
+                            "#c0392b",
+                            "#c0392b",
+                            "#bdc3c7",
+                            "#7f8c8d",
+                        ],
+                        label: 'Dataset 1'
+                    }],
+                    labels: data.labels
+                },
+                options: {
+                    responsive: true,
+                    tooltips: {
+                        callbacks: {
+                            label: function(tooltipItem, data) {
+                                //get the concerned dataset
+                                var dataset = data.datasets[tooltipItem.datasetIndex];
+                                //calculate the total of this data set
+                                var total = dataset.data.reduce(function(previousValue, currentValue, currentIndex, array) {
+                                    return previousValue + currentValue;
+                                });
+                                //get the current items value
+                                var currentValue = dataset.data[tooltipItem.index];
+                                //calculate the precentage based on the total and current item, also this does a rough rounding to give a whole number
+                                var precentage = Math.floor(((currentValue / total) * 100) + 0.5);
+
+                                return data.labels[tooltipItem.index] + ": " + currentValue + " MW(" + precentage + "%)";
+                            }
+                        }
+                    }
+                }
+            };
+            var ctx = that.$el.find(".groupPie #chart-area")[0].getContext("2d");
+            new Chart(ctx, config);
+
+
         },
         setAction: function() {
             var that = this;
