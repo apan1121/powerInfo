@@ -3,7 +3,7 @@ $dir = dirname(__FILE__)."/";
 $data = @json_decode(file_get_contents("http://data.taipower.com.tw/opendata01/apply/file/d006001/001.txt"),true);
 
 $getTime = "";
-$summaryDays = 2;
+$summaryDays = 3;
 
 $mappingNameStorage = [
     "大潭CC" => ["大潭"],
