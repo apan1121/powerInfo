@@ -73,7 +73,7 @@ define([
 
             var chartType = {};
             that.params.summaryInfo.comparator = function(model) {
-                return that.params.app.Moment(model.get("date")).format("x");
+                return model.get("timestamp");
             };
             that.params.summaryInfo.sort();
 
