@@ -1,4 +1,4 @@
-body{
+body {
     background: #f7f7f7;
 }
 
@@ -41,12 +41,19 @@ body{
     }
 }
 
-.contentBox{
-    .tab-content{
+.contentBox {
+    .tab-content {
         background: #FFF;
-        .tab-pane{
+        .tab-pane {
             padding: 20px 20px;
         }
+    }
+}
+.nav-tabs{
+    li {
+        text-align: center;
+        font-size: 20px;
+        font-weight: 900;
     }
 }
 
@@ -57,11 +64,11 @@ body{
     padding-bottom: 20px;
 }
 
-.card-list-wrap{
+.card-list-wrap {
     padding: 20px 0;
 }
 
-.info-detail{
+.info-detail {
     line-height: 1.8;
 }
 
@@ -71,7 +78,7 @@ body{
 //     color: white;
 //     border-radius: 3px;
 // }
-.statusType{
+.statusType {
 
     &[rel='fix'] {
         background-color: #C00;
@@ -94,18 +101,16 @@ body{
         border-radius: 3px;
         display: inline-block;
     }
-
 }
 
 .plantBox {
-    margin: 0 auto;
-    // border: 1px solid #ddd;
+    margin: 0 auto; // border: 1px solid #ddd;
     padding: 10px 0 20px;
     background: white;
     border-radius: 5px;
     margin-bottom: 10px;
     color: #333;
-    box-shadow: 0 6px 15px rgba(36,37,38,0.08);
+    box-shadow: 0 6px 15px rgba(36, 37, 38, 0.08);
     .circle {
         margin: 0 auto;
         height: 150px;
@@ -123,7 +128,7 @@ body{
             left: 50%;
             transform: translateX(-50%)translateY(-50%);
         }
-        .icon{
+        .icon {
             position: absolute;
             font-size: 60px;
             top: 40%;
@@ -136,25 +141,25 @@ body{
     }
     .fullName {
         text-align: center;
-        &.plantIntro{
+        &.plantIntro {
             color: #333;
             font-weight: 900;
             cursor: pointer;
         }
     }
-    .info{
-         text-align: center;
+    .info {
+        text-align: center;
     }
 
-    &.fix{
-        .plantContent{
+    &.fix {
+        .plantContent {
             opacity: 0.3;
         }
-        &:after{
+        &:after {
             content: "修";
             color: #C00;
             font-weight: 900;
-            border:5px solid #C00;
+            border: 5px solid #C00;
             border-radius: 50%;
             padding: 20px;
             font-size: 50px;
@@ -167,20 +172,20 @@ body{
             top: 50%;
             left: 40%;
             transform: rotate(25deg) translateX(-50%) translateY(-50%);
-            text-shadow: 0px 0px 10px rgba(0,0,0,0.5);
-            box-shadow: 0px 0px 10px rgba(0,0,0,0.5);
+            text-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
         }
     }
 
-    &.limit{
-        .plantContent{
+    &.limit {
+        .plantContent {
             opacity: 0.3;
         }
-        &:after{
+        &:after {
             content: "限";
             color: #0A0;
             font-weight: 900;
-            border:5px solid #0A0;
+            border: 5px solid #0A0;
             border-radius: 50%;
             padding: 20px;
             font-size: 50px;
@@ -193,20 +198,20 @@ body{
             top: 50%;
             left: 40%;
             transform: rotate(25deg) translateX(-50%) translateY(-50%);
-            text-shadow: 0px 0px 10px rgba(0,0,0,0.5);
-            box-shadow: 0px 0px 10px rgba(0,0,0,0.5);
+            text-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
         }
     }
 
-    &.break{
-        .plantContent{
+    &.break {
+        .plantContent {
             opacity: 0.3;
         }
-        &:after{
+        &:after {
             content: "障";
             color: #CC0;
             font-weight: 900;
-            border:5px solid #CC0;
+            border: 5px solid #CC0;
             border-radius: 50%;
             padding: 20px;
             font-size: 50px;
@@ -219,26 +224,61 @@ body{
             top: 50%;
             left: 40%;
             transform: rotate(25deg) translateX(-50%) translateY(-50%);
-            text-shadow: 0px 0px 10px rgba(0,0,0,0.5);
-            box-shadow: 0px 0px 10px rgba(0,0,0,0.5);
+            text-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
         }
     }
 }
 
-.powerPlantIntro{
+.powerPlantIntro {
     padding-bottom: 5px;
     margin-bottom: 10px;
     border-bottom: 1px solid #999;
-    .photo{
+    .photo {
         height: 300px;
         background: #CCC;
         border: 1px solid #bbb;
         border-radius: 5px;
     }
-    .introContent{
+    .introContent {
         padding: 10px;
     }
-    &:last-child{
+    &:last-child {
         border-bottom: 0px;
     }
+}
+
+.chart-container {
+    position: relative;
+    margin: auto;
+    height: 300px;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #eee;
+}
+
+canvas{
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+}
+#chartjs-tooltip {
+    opacity: 1;
+    position: absolute;
+    background: rgba(0, 0, 0, .7);
+    color: white;
+    border-radius: 3px;
+    -webkit-transition: all .1s ease;
+    transition: all .1s ease;
+    pointer-events: none;
+    -webkit-transform: translate(-50%, 0);
+    transform: translate(-50%, 0);
+    min-width: 200px;
+}
+
+.chartjs-tooltip-key {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    margin-right: 10px;
 }

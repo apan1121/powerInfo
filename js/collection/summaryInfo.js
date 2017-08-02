@@ -27,6 +27,7 @@ define([
                             item[statusType] = parseFloat(item[statusType]);
                         });
 
+                        date = that.params.app.Moment(date).format("MM/DD HH:mm");
                         inputData.push($.extend(true,{date: date, type: type}, item));
                     });
                 });

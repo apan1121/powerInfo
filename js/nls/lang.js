@@ -37,5 +37,8 @@ define({
         "fix": "待修機組",
 
         "powerPlantIntro": "電廠介紹",
+
+        "dateTime": "時間",
+        "actionPower": "運轉MW",
     }
 });
