@@ -110,18 +110,18 @@ define([
 
 
             /* 總運轉量 */
-            that.summaryChartBox(that.target.find(".summaryContent"), '總運轉', summaryInfo);
+            that.summaryChartBox(that.target.find(".summaryContent"), '總運轉', 'power',summaryInfo);
 
             /* 各運轉量 */
-            that.summaryChartTypeBox(that.target.find(".summaryContent"), '各類運轉', summaryTypeInfo);
+            that.summaryChartTypeBox(that.target.find(".summaryContent"), '各類運轉', 'machine',summaryTypeInfo);
 
             /* 個別類型運轉量 */
             _.each(chartType, function(itemInfo, key){
-                that.summaryChartBox(that.target.find(".summaryContent"), that.params.lang[key], itemInfo);
+                that.summaryChartBox(that.target.find(".summaryContent"), that.params.lang[key], key.replace(" ","_").replace("-","_"), itemInfo);
             });
 
         },
-        summaryChartBox: function(targetBox, title, summaryInfo) {
+        summaryChartBox: function(targetBox, title, icon, summaryInfo) {
             var that = this;
             var datasetsLabel = [];
             var datasets = [];
@@ -143,7 +143,7 @@ define([
                 });
             });
 
-            var summaryChartBox = $(that.templates.SummaryChartBox());
+            var summaryChartBox = $(that.templates.SummaryChartBox({icon: icon}));
             targetBox.append(summaryChartBox);
             summaryChartBox.find("canvas");
             Chart.defaults.global.pointHitDetectionRadius = 1;
@@ -270,7 +270,7 @@ define([
 
             new Chart(summaryChartBox.find("canvas")[0], config);
         },
-        summaryChartTypeBox: function(targetBox, title, summaryInfo) {
+        summaryChartTypeBox: function(targetBox, title, icon, summaryInfo) {
             var that = this;
             var datasetsLabel = [];
             var datasets = [];
@@ -292,7 +292,7 @@ define([
                 });
             });
 
-            var summaryChartBox = $(that.templates.SummaryChartBox());
+            var summaryChartBox = $(that.templates.SummaryChartBox({icon: icon}));
             targetBox.append(summaryChartBox);
             summaryChartBox.find("canvas");
             Chart.defaults.global.pointHitDetectionRadius = 1;

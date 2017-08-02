@@ -255,13 +255,25 @@ body {
     margin-bottom: 20px;
     padding-bottom: 10px;
     border-bottom: 1px solid #eee;
+    position: relative;
+
+    canvas{
+        -moz-user-select: none;
+        -webkit-user-select: none;
+        -ms-user-select: none;
+        position: absolute;
+        z-index: 3;
+    }
+    .icon{
+        position: absolute;
+        top: 130px;
+        right: 10px;
+        font-size: 60px;
+        color: rgba(0,0,0,0.2);
+    }
 }
 
-canvas{
-    -moz-user-select: none;
-    -webkit-user-select: none;
-    -ms-user-select: none;
-}
+
 #chartjs-tooltip {
     opacity: 1;
     position: absolute;
