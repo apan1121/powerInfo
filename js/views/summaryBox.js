@@ -226,6 +226,7 @@ define([
 
             var config = {
                 type: 'line',
+                animation: false,
                 data: {
                     labels: labels,
                     datasets: datasets,
@@ -383,6 +384,7 @@ define([
                     datasets: datasets,
                 },
                 options: {
+                    animation: false,
                     maintainAspectRatio: false,
                     responsive: true,
                     title: {

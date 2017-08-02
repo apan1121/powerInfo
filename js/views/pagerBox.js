@@ -333,6 +333,7 @@ define([
                 },
                 options: {
                     responsive: true,
+                    animation: false,
                     tooltips: {
                         callbacks: {
                             label: function(tooltipItem, data) {
