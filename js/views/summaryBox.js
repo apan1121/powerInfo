@@ -73,7 +73,7 @@ define([
 
             var chartType = {};
             that.params.summaryInfo.comparator = function(model) {
-                return that.params.app.Moment(model.get("date")).format("x");
+                return that.params.app.Moment(model.get("org_date")).format("x");
             };
             that.params.summaryInfo.sort();
 
