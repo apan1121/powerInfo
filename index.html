@@ -32,7 +32,7 @@
     </script>
     <link rel="stylesheet/less" type="text/css" href="css/style.css" />
     <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
-    <link rel="stylesheet/less" type="text/css" href="css/main.less" />
+    <link rel="stylesheet/less" type="text/css" href="css/main.less?ver=2" />
     <script type="text/JavaScript" src="./js/lib/cdnServiceList.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/less.js/2.7.2/less.min.js"></script>
 </head>
@@ -56,17 +56,17 @@
     </div>
     <div class="container-fluid contentBox">
         <ul class="row nav nav-tabs" role="tablist" style="">
-            <li class="col-xs-6">
+            <li class="col-xs-6 active">
                 <a href="#info" aria-controls="info" role="tab" data-toggle="tab">機組資訊</a>
             </li>
-            <li class="col-xs-6 active">
+            <li class="col-xs-6">
                 <a href="#summary" aria-controls="summary" role="tab" data-toggle="tab">分析摘要</a>
             </li>
         </ul>
 
         <div class="row tab-content">
-            <div role="tabpanel" class="col-xs-12 tab-pane pagerBox" id="info">資料讀取中...</div>
-            <div role="tabpanel" class="col-xs-12 tab-pane active summaryBox" id="summary">資料讀取中...</div>
+            <div role="tabpanel" class="col-xs-12 tab-pane active pagerBox" id="info">資料讀取中...</div>
+            <div role="tabpanel" class="col-xs-12 tab-pane summaryBox" id="summary">資料讀取中...</div>
         </div>
     </div>
 </body>
