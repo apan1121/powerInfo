@@ -27,8 +27,9 @@ define([
                             item[statusType] = parseFloat(item[statusType]);
                         });
 
-                        var org_date = that.params.app.Moment(date).format("MM/DD HH:mm");
-                        inputData.push($.extend(true,{date: date, org_date: org_date, type: type}, item));
+                        var formate_date = that.params.app.Moment(date).format("MM/DD HH:mm");
+                        var timestamp = that.params.app.Moment(date).format("x")
+                        inputData.push($.extend(true,{date: formate_date, timestamp: timestamp, type: type}, item));
                     });
                 });
 
