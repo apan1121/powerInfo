@@ -73,6 +73,10 @@ define([
                 submitFlag = true;
             });
 
+            target.find(".filterSubmitBtn").bind("click", function(){
+                that.$el.find(".filterBtn").trigger("click");
+            });
+
             target.bind("submit", function(e) {
                 e.preventDefault();
                 if (!submitFlag) {
