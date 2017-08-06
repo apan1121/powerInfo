@@ -76,6 +76,7 @@ define([
             that.target.html(that.templates.SummaryBox());
 
             var sliderTarget = that.target.find("#slider")[0];
+            console.log(that.params.summaryInfo.startTime, that.params.summaryInfo.endTime);
             noUiSlider.create(sliderTarget,{
                 step: 36000,
                 connect: true,
