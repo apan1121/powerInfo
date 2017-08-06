@@ -19,4 +19,5 @@ var CDN = {
     jquery_imgLiquid: ['lib/vendor/imgLiquid-min'],
 
     chartjs: ['//cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart'],
+    nouislider: ['//cdnjs.cloudflare.com/ajax/libs/noUiSlider/10.1.0/nouislider'],
 }

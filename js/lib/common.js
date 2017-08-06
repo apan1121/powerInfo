@@ -116,6 +116,7 @@ requirejs.config({
         jquery_imgLiquid: CDN.jquery_imgLiquid,
 
         chartjs: CDN.chartjs,
+        nouislider: CDN.nouislider,
     }
 });
 

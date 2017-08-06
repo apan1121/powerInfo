@@ -21,6 +21,7 @@ define([
             var that = this;
             $.get(that.parms.url, { time: new Date().getTime() }, function(data) {
                 var inputData = [];
+                var dateStorage = {};
                 _.each(data, function(items, date){
                     _.each(items, function(item, type){
                         _.each(that.params.statusType, function(statusType){
@@ -29,9 +30,14 @@ define([
 
                         var formate_date = that.params.app.Moment(date).format("MM/DD HH:mm");
                         var timestamp = that.params.app.Moment(date).format("x")
+                        dateStorage[timestamp] = 1;
                         inputData.push($.extend(true,{date: formate_date, timestamp: timestamp, type: type}, item));
                     });
                 });
+
+                dateStorage = Object.keys(dateStorage);
+                that.startTime = _.min(dateStorage);
+                that.endTime = _.max(dateStorage);
 
                 that.reset();
                 that.add(inputData);

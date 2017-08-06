@@ -6,8 +6,10 @@ define([
     "text!templates/summaryBox.html",
     "text!templates/summaryChartBox.html",
 
+    "nouislider",
     "chartjs",
-], function($, _, Backbone, SummaryBoxTpl, SummaryChartBox) {
+
+], function($, _, Backbone, SummaryBoxTpl, SummaryChartBox, noUiSlider) {
 
     var SummaryBox = Backbone.View.extend({
         el: 'body',
@@ -63,7 +65,58 @@ define([
         },
         setData: function() {
             var that = this;
-            that.target.empty();
+
+            that.selectDateRange = {
+                start: parseInt(that.params.summaryInfo.startTime),
+                end: parseInt(that.params.summaryInfo.endTime),
+            };
+
+            that.target.html(that.templates.SummaryBox());
+
+            var sliderTarget = that.target.find("#slider")[0];
+            noUiSlider.create(sliderTarget,{
+                step: 36000,
+                connect: true,
+                range: {
+                    min: parseInt(that.params.summaryInfo.startTime),
+                    max: parseInt(that.params.summaryInfo.endTime)
+                },
+                start: [ parseInt(that.params.summaryInfo.startTime), parseInt(that.params.summaryInfo.endTime) ]
+            });
+
+            var reRenderTimer = null;
+            var initFlag = true;
+            sliderTarget.noUiSlider.on('update', function( values, handle ) {
+                that.target.find(".summarySlider .start").html(that.params.app.Moment(parseInt(values[0])).format("MM/DD HH:mm"));
+                that.target.find(".summarySlider .end").html(that.params.app.Moment(parseInt(values[1])).format("MM/DD HH:mm"));
+
+
+                that.selectDateRange = {
+                    start: parseInt(values[0]),
+                    end: parseInt(values[1]),
+                };
+
+                clearTimeout(reRenderTimer);
+                reRenderTimer = setTimeout(function(){
+                    var selectDate = [
+                        that.params.app.Moment(that.selectDateRange.start).format("YYYY/MM/DD HH:mm:ss"),
+                        that.params.app.Moment(that.selectDateRange.end).format("YYYY/MM/DD HH:mm:ss")
+                    ];
+
+                    if (!initFlag) {
+                        that.params.app.mixpanel.track("sliderDate", selectDate);
+                    }
+
+                    initFlag = false;
+                    that.renderPage();
+                },500);
+            });
+
+            that.renderPage();
+        },
+        renderPage: function() {
+            var that = this;
+            that.target.find(".summaryContent").empty();
             var selectData = that.params.filterBox.selectData;
 
             var summaryInfo = {};
@@ -80,7 +133,7 @@ define([
             var summaryTypeInfo = {};
 
             _.each(that.params.summaryInfo.toJSON(), function(item) {
-                if (selectData.plantType.indexOf(item.type) >= 0) {
+                if (selectData.plantType.indexOf(item.type) >= 0 && item.timestamp >= that.selectDateRange.start && item.timestamp <= that.selectDateRange.end ) {
                     if (["", null, undefined].indexOf(chartType[item.type]) >= 0) {
                         chartType[item.type] = {};
                         _.each(that.params.statusType, function(statusType) {
@@ -104,9 +157,6 @@ define([
 
                 }
             });
-
-
-            that.target.html(that.templates.SummaryBox());
 
 
             /* 總運轉量 */
