@@ -35,7 +35,9 @@ define([
                     });
                 });
 
-                dateStorage = Object.keys(dateStorage);
+                dateStorage = Object.keys(dateStorage).map(function(item){
+                    return parseInt(item);
+                });
                 that.startTime = _.min(dateStorage);
                 that.endTime = _.max(dateStorage);
 
