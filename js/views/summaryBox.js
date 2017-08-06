@@ -60,7 +60,7 @@ define([
             var that = this;
             clearTimeout(that.setDataWaitTimer);
             that.setDataWaitTimer = setTimeout(function() {
-                if (that.params.summaryInfo.length > 0) {
+                if (that.params.summaryInfo.length > 0 && !isNaN(that.params.summaryInfo.startTime) && !isNaN(that.params.summaryInfo.endTime)) {
                     that.setData();
                 }
             }, 10);
