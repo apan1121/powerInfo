@@ -83,6 +83,10 @@ require([jsVars.baseResUrl + 'js/lib/common.js'], function(common) {
                     filterBox: filterBox,
                     lang: lang,
                 });
+
+                that.$el.find("[data-toggle='tab']").on("shown.bs.tab", function(e){
+                    that.mixpanel.track("tab", {"target":$(this).attr("aria-controls")});
+                });
             }
         });
 
