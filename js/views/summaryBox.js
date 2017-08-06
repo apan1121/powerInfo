@@ -60,7 +60,9 @@ define([
             var that = this;
             clearTimeout(that.setDataWaitTimer);
             that.setDataWaitTimer = setTimeout(function() {
-                that.setData();
+                if (that.params.summaryInfo.length > 0) {
+                    that.setData();
+                }
             }, 10);
         },
         setData: function() {
