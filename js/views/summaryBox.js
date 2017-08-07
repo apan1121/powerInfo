@@ -77,6 +77,7 @@ define([
 
             var sliderTarget = that.target.find("#slider")[0];
             console.log(that.params.summaryInfo.startTime, that.params.summaryInfo.endTime);
+            console.log(parseInt(that.params.summaryInfo.startTime) -864000*2);
             noUiSlider.create(sliderTarget,{
                 step: 36000,
                 connect: true,
@@ -84,7 +85,7 @@ define([
                     min: parseInt(that.params.summaryInfo.startTime),
                     max: parseInt(that.params.summaryInfo.endTime)
                 },
-                start: [ parseInt(that.params.summaryInfo.startTime), parseInt(that.params.summaryInfo.endTime) ]
+                start: [ parseInt(that.params.summaryInfo.endTime) -86400000*3, parseInt(that.params.summaryInfo.endTime) ]
             });
 
             var reRenderTimer = null;
@@ -115,7 +116,7 @@ define([
                 },500);
             });
 
-            that.renderPage();
+            // that.renderPage();
         },
         renderPage: function() {
             var that = this;
