@@ -189,11 +189,12 @@ define([
             });
 
 
-            /* 總運轉量 */
-            that.summaryChartBox(that.target.find(".summaryContent"), '總運轉', 'power',summaryInfo);
 
             /* 各運轉量 */
-            that.summaryChartTypeDays(that.target.find(".summaryContent"), '一週運轉量', 'calendar',summaryByDays);
+            that.summaryChartTypeDays(that.target.find(".summaryContent"), '一週使用量', 'calendar',summaryByDays);
+
+            /* 總運轉量 */
+            that.summaryChartBox(that.target.find(".summaryContent"), '區間總運轉', 'power',summaryInfo);
 
             /* 各運轉量 */
             that.summaryChartTypeBox(that.target.find(".summaryContent"), '各類運轉', 'machine',summaryTypeInfo);
