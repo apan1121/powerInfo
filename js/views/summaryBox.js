@@ -21,9 +21,9 @@ define([
                 "#e67e22",
                 "#9b59b6",
                 "#95a5a6",
-                "#2ecc71",
+                "#81B563",
                 "#34495e",
-                "#16a085",
+                "#2529d8",
                 "#27ae60",
                 "#2980b9",
                 "#8e44ad",
@@ -76,8 +76,6 @@ define([
             that.target.html(that.templates.SummaryBox());
 
             var sliderTarget = that.target.find("#slider")[0];
-            console.log(that.params.summaryInfo.startTime, that.params.summaryInfo.endTime);
-            console.log(parseInt(that.params.summaryInfo.startTime) -864000*2);
             noUiSlider.create(sliderTarget,{
                 step: 36000,
                 connect: true,
@@ -136,7 +134,35 @@ define([
 
             var summaryTypeInfo = {};
 
+            var summaryChooseDays = {};
+            var thisWeekNum = that.params.app.Moment().format("ww");
+            for (var i = 0; i<=7; i++) {
+                var date = that.params.app.Moment().add('days', i*-1);
+                var showWeek = date.format("ddd");
+                if (date.format("ww") < thisWeekNum) {
+                    showWeek = "上"+ showWeek;
+                }
+                summaryChooseDays[date.format("YYYY-MM-DD")] = showWeek;
+            }
+            // summaryChooseDays[that.params.app.Moment().format("YYYY-MM-DD")] = "今天";
+            // summaryChooseDays[that.params.app.Moment().add('days',-1).format("YYYY-MM-DD")] = "昨天";
+            // summaryChooseDays[that.params.app.Moment().add('days',-2).format("YYYY-MM-DD")] = "前天";
+            // summaryChooseDays[that.params.app.Moment().add('days',-7).format("YYYY-MM-DD")] = "上週" + that.params.app.Moment().add('days',-7).format("dd");
+            summaryByDays = {};
+
             _.each(that.params.summaryInfo.toJSON(), function(item) {
+                var thatDay = that.params.app.Moment(parseInt(item.timestamp)).format("YYYY-MM-DD");
+                if (["",null, undefined].indexOf(summaryChooseDays[thatDay]) == -1) {
+                    if (["",null, undefined].indexOf(summaryByDays[summaryChooseDays[thatDay]]) >= 0) {
+                        summaryByDays[summaryChooseDays[thatDay]] = {};
+                    }
+                    if (["",null, undefined].indexOf(summaryByDays[summaryChooseDays[thatDay]][item.date]) >= 0) {
+                        summaryByDays[summaryChooseDays[thatDay]][item.date] = 0;
+                    }
+                    summaryByDays[summaryChooseDays[thatDay]][item.date] += item.used;
+                }
+
+
                 if (selectData.plantType.indexOf(item.type) >= 0 && item.timestamp >= that.selectDateRange.start && item.timestamp <= that.selectDateRange.end ) {
                     if (["", null, undefined].indexOf(chartType[item.type]) >= 0) {
                         chartType[item.type] = {};
@@ -167,6 +193,9 @@ define([
             that.summaryChartBox(that.target.find(".summaryContent"), '總運轉', 'power',summaryInfo);
 
             /* 各運轉量 */
+            that.summaryChartTypeDays(that.target.find(".summaryContent"), '一週運轉量', 'calendar',summaryByDays);
+
+            /* 各運轉量 */
             that.summaryChartTypeBox(that.target.find(".summaryContent"), '各類運轉', 'machine',summaryTypeInfo);
 
             /* 個別類型運轉量 */
@@ -182,7 +211,6 @@ define([
             var labels = [];
 
             _.each(summaryInfo, function(item, key) {
-                labels = Object.keys(item);
                 datasetsLabel.push(that.params.lang[key]);
                 // var hidden = (datasets.length >= 2) ? true : false;
                 var hidden = false;
@@ -196,6 +224,11 @@ define([
                     radius: 1,
                 });
             });
+
+            for (var key in summaryInfo) {
+                labels = Object.keys(summaryInfo[key]);
+                break;
+            }
 
             var summaryChartBox = $(that.templates.SummaryChartBox({icon: icon}));
             targetBox.append(summaryChartBox);
@@ -331,12 +364,11 @@ define([
             var labels = [];
 
             _.each(summaryInfo, function(item, key) {
-                labels = Object.keys(item);
-                datasetsLabel.push(that.params.lang[key]);
+                datasetsLabel.push(that.params.lang[key] || key);
                 // var hidden = (datasets.length >= 2) ? true : false;
                 var hidden = false;
                 datasets.push({
-                    label: that.params.lang[key],
+                    label: that.params.lang[key] || key,
                     backgroundColor: that.params.color[datasets.length],
                     borderColor: that.params.color[datasets.length],
                     data: Object.values(item),
@@ -345,6 +377,11 @@ define([
                     radius: 1,
                 });
             });
+
+            for (var key in summaryInfo) {
+                labels = Object.keys(summaryInfo[key]);
+                break;
+            }
 
             var summaryChartBox = $(that.templates.SummaryChartBox({icon: icon}));
             targetBox.append(summaryChartBox);
@@ -400,6 +437,162 @@ define([
                     var percent = ((item.yLabel / totalUsed) *100).toFixed(2) + "%";
 
                     innerHtml.push("<div>" + labelColorBox + labelName + ": " + value + " MW ("+percent+")</div>");
+                    switch (item.datasetIndex) {
+                        case 1:
+                            used = item.yLabel;
+                            break;
+                        case 0:
+                            cap = item.yLabel;
+                            break;
+                    }
+                });
+
+                tooltipEl.innerHTML = innerHtml.join("\<n></n>");
+
+                var positionY = this._chart.canvas.offsetTop;
+                var positionX = this._chart.canvas.offsetLeft;
+                var boxWidth = $(tooltipEl).outerWidth();
+
+                var diff = 0;
+                if (positionX + tooltip.caretX + boxWidth > $(window).width()) {
+                    diff = $(window).width() - (positionX + tooltip.caretX + boxWidth);
+                }
+
+                // Display, position, and set styles for font
+                tooltipEl.style.opacity = 1;
+                tooltipEl.style.left = positionX + tooltip.caretX + diff + 'px';
+                tooltipEl.style.top = positionY + tooltip.caretY + 'px';
+                tooltipEl.style.fontFamily = tooltip._fontFamily;
+                tooltipEl.style.fontSize = tooltip.fontSize;
+                tooltipEl.style.fontStyle = tooltip._fontStyle;
+                tooltipEl.style.padding = tooltip.yPadding + 'px ' + tooltip.xPadding + 'px';
+            };
+
+            var config = {
+                type: 'line',
+                data: {
+                    labels: labels,
+                    datasets: datasets,
+                },
+                options: {
+                    animation: false,
+                    maintainAspectRatio: false,
+                    responsive: true,
+                    title: {
+                        display: true,
+                        text: title,
+                        fontSize: 20,
+                    },
+                    tooltips: {
+                        enabled: false,
+                        mode: 'index',
+                        position: 'nearest',
+                        custom: customTooltips
+                    },
+                    hover: {
+                        mode: 'nearest',
+                        intersect: true
+                    },
+                    scales: {
+                        xAxes: [{
+                            display: true,
+                            scaleLabel: {
+                                display: true,
+                                labelString: that.params.lang["dateTime"],
+                            }
+                        }],
+                        yAxes: [{
+                            display: true,
+                            scaleLabel: {
+                                display: true,
+                                labelString: that.params.lang["actionPower"],
+                            }
+                        }]
+                    },
+                },
+            };
+
+            new Chart(summaryChartBox.find("canvas")[0], config);
+        },
+        summaryChartTypeDays: function(targetBox, title, icon, summaryInfo) {
+            var that = this;
+            var datasetsLabel = [];
+            var datasets = [];
+            var labels = [];
+
+            _.each(summaryInfo, function(item, key) {
+                datasetsLabel.push(that.params.lang[key] || key);
+                // var hidden = (datasets.length >= 2) ? true : false;
+                var hidden = false;
+                datasets.push({
+                    label: that.params.lang[key] || key,
+                    backgroundColor: that.params.color[datasets.length],
+                    borderColor: that.params.color[datasets.length],
+                    data: Object.values(item),
+                    fill: false,
+                    hidden: hidden,
+                    radius: 1,
+                });
+            });
+
+            for (var key in summaryInfo) {
+                labels = Object.keys(summaryInfo[key]);
+                break;
+            }
+
+            var summaryChartBox = $(that.templates.SummaryChartBox({icon: icon}));
+            targetBox.append(summaryChartBox);
+            summaryChartBox.find("canvas");
+            Chart.defaults.global.pointHitDetectionRadius = 1;
+
+            var customTooltips = function(tooltip) {
+
+                var tooltipEl = this._chart.canvas.parentNode.querySelector("#chartjs-tooltip")
+                if (!tooltipEl) {
+                    tooltipEl = document.createElement('div');
+                    tooltipEl.id = 'chartjs-tooltip';
+                    this._chart.canvas.parentNode.appendChild(tooltipEl);
+                }
+
+                // Hide if no tooltip
+                if (tooltip.opacity === 0) {
+                    tooltipEl.style.opacity = 0;
+                    return;
+                }
+
+                // Set caret Position
+                tooltipEl.classList.remove('above', 'below', 'no-transform');
+                if (tooltip.yAlign) {
+                    tooltipEl.classList.add(tooltip.yAlign);
+                } else {
+                    tooltipEl.classList.add('no-transform');
+                }
+
+                var innerHtml = [];
+                var titleLines = tooltip.title || [];
+                if (["", null, undefined, []].indexOf(titleLines) == -1) {
+                    innerHtml.push('<div style="text-align:center; font-weight:900;">' + titleLines.join(",") + '</div>');
+                }
+
+
+                var totalUsed = tooltip.dataPoints.map(function(item){
+                    return item.yLabel;
+                }).reduce(function(lastVal, newVal){
+                    return lastVal + newVal;
+                });
+
+                _.each(tooltip.dataPoints, function(item, i) {
+                    var colors = tooltip.labelColors[i];
+                    var style = [];
+                    style.push('background:' + colors.backgroundColor);
+                    style.push('border-color:' + colors.borderColor);
+                    style.push('border-width: 2px');
+                    style.push('font-weight: 600');
+                    var labelColorBox = '<span class="chartjs-tooltip-key" style="' + style.join(";") + '"></span>';
+                    var labelName = datasetsLabel[item.datasetIndex];
+                    var value = item.yLabel.toFixed(2);
+
+                    innerHtml.push("<div>" + labelColorBox + labelName + ": " + value + " MW</div>");
                     switch (item.datasetIndex) {
                         case 1:
                             used = item.yLabel;
