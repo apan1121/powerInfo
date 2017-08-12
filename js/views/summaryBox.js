@@ -139,8 +139,10 @@ define([
             var setSummaryChooseDaysData = function(cutDay){
                 var date = that.params.app.Moment().add('days', cutDay*-1);
                 var showWeek = date.format("ddd");
-                if (date.format("ww") < thisWeekNum) {
+                if (date.format("ww") == thisWeekNum -1) {
                     showWeek = "上"+ showWeek;
+                } else if (date.format("ww") == thisWeekNum -2) {
+                    showWeek = "上上"+ showWeek;
                 }
                 summaryChooseDays[date.format("YYYY-MM-DD")] = showWeek;
             }
