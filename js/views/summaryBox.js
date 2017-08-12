@@ -136,14 +136,18 @@ define([
 
             var summaryChooseDays = {};
             var thisWeekNum = that.params.app.Moment().format("ww");
-            for (var i = 0; i<=7; i++) {
-                var date = that.params.app.Moment().add('days', i*-1);
+            var setSummaryChooseDaysData = function(cutDay){
+                var date = that.params.app.Moment().add('days', cutDay*-1);
                 var showWeek = date.format("ddd");
                 if (date.format("ww") < thisWeekNum) {
                     showWeek = "上"+ showWeek;
                 }
                 summaryChooseDays[date.format("YYYY-MM-DD")] = showWeek;
             }
+            for (var i = 0; i<=7; i++) {
+                setSummaryChooseDaysData(i);
+            }
+            setSummaryChooseDaysData(7*2);
             // summaryChooseDays[that.params.app.Moment().format("YYYY-MM-DD")] = "今天";
             // summaryChooseDays[that.params.app.Moment().add('days',-1).format("YYYY-MM-DD")] = "昨天";
             // summaryChooseDays[that.params.app.Moment().add('days',-2).format("YYYY-MM-DD")] = "前天";
