@@ -146,10 +146,10 @@ define([
                 }
                 summaryChooseDays[date.format("YYYY-MM-DD")] = showWeek;
             }
-            for (var i = 0; i<=7; i++) {
+            for (var i = 0; i<=10; i++) {
                 setSummaryChooseDaysData(i);
             }
-            setSummaryChooseDaysData(7*2);
+
             // summaryChooseDays[that.params.app.Moment().format("YYYY-MM-DD")] = "今天";
             // summaryChooseDays[that.params.app.Moment().add('days',-1).format("YYYY-MM-DD")] = "昨天";
             // summaryChooseDays[that.params.app.Moment().add('days',-2).format("YYYY-MM-DD")] = "前天";
@@ -197,7 +197,7 @@ define([
 
 
             /* 各運轉量 */
-            that.summaryChartTypeDays(that.target.find(".summaryContent"), '一週使用量', 'calendar',summaryByDays);
+            that.summaryChartTypeDays(that.target.find(".summaryContent"), '週用量', 'calendar',summaryByDays);
 
             /* 總運轉量 */
             that.summaryChartBox(that.target.find(".summaryContent"), '區間總運轉', 'power',summaryInfo);
