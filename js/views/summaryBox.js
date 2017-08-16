@@ -197,7 +197,7 @@ define([
 
 
             /* 各運轉量 */
-            that.summaryChartTypeDays(that.target.find(".summaryContent"), '週用量', 'calendar',summaryByDays);
+            that.summaryChartTypeDays(that.target.find(".summaryContent"), '日用量', 'calendar',summaryByDays);
 
             /* 總運轉量 */
             that.summaryChartBox(that.target.find(".summaryContent"), '區間總運轉', 'power',summaryInfo);
