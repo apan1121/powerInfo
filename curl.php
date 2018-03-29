@@ -156,8 +156,9 @@ if (!empty($data)) {
         }
         $elecData["percent"] = $elecData["percent"]."";
 
-
-        if (strpos($elecData["note"],"修") !== false && strpos($elecData["note"],"部分") === false) {
+        if (strpos($elecData["note"],"停機") !== false){
+            $elecData["status"] = "fix";
+        }else if (strpos($elecData["note"],"修") !== false && strpos($elecData["note"],"部分") === false) {
             $elecData["status"] = "fix";
         } else if (strpos($elecData["note"],"環保限制") !== false){
             $elecData["status"] = "limit";
@@ -167,18 +168,30 @@ if (!empty($data)) {
 
         switch ($elecData["status"]) {
             case "fix":
-                $totalFix += $elecData["capacity"];
+                if (is_numeric($elecData["capacity"])) {
+                    $totalFix += $elecData["capacity"];
+                }
                 break;
             case "limit":
-                $totalLimit += $elecData["capacity"];
+                if (is_numeric($elecData["capacity"])) {
+                    $totalLimit += $elecData["capacity"];
+                }
                 break;
             case "break":
-                $totalBreak += $elecData["capacity"];
+                if (is_numeric($elecData["capacity"])) {
+                    $totalBreak += $elecData["capacity"];
+                }
                 break;
             default:
-                $totalCapacity += $elecData["capacity"];
-                $totalUsed += $elecData["used"] ;
-                $totalUsedType[$elecData["type"]] += $elecData["used"];
+                if (is_numeric($elecData["capacity"])) {
+                    $totalCapacity += $elecData["capacity"];
+                }
+                if (is_numeric($elecData["used"])) {
+                    $totalUsed += $elecData["used"] ;
+                }
+                if (is_numeric($elecData["used"])) {
+                    $totalUsedType[$elecData["type"]] += $elecData["used"];
+                }
                 break;
         }
 
