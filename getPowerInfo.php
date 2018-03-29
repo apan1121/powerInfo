@@ -245,7 +245,7 @@ if (!empty($data)) {
                 $powerData["status"] = "fix";
             } else if (strpos($powerData["note"],"修") !== false && strpos($powerData["note"],"部分") === false) {
                 $powerData["status"] = "fix";
-            } else if ((strpos($powerData["note"],"環保限制") !== false || strpos($powerData["note"],"水文限制") !== false) && (int)$powerData["used"] <= 0) {
+            } else if ((strpos($powerData["note"],"環保限制") !== false || strpos($powerData["note"],"水文限制") !== false || strpos($powerData["note"],"降載減排") !== false) && (int)$powerData["used"] <= 0) {
                 $powerData["status"] = "limit";
             } else if (strpos($powerData["note"],"故障") !== false && (int)$powerData["used"] <= 0) {
                 $powerData["status"] = "break";
