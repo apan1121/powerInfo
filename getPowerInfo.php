@@ -42,6 +42,23 @@ $mappingNameStorage = [
     "東部小水力"=> ["東部","東興"],
     "台中2" => ["台中"],
     "台中Gas34" => ["台中"],
+
+    "核能" => "nuclear",
+    "燃煤" => "coal",
+    "汽電共生" => "co-gen",
+    "天然氣" => "lng",
+    "燃氣" => "lng",
+    "燃油" => "oil",
+    "輕油" => "diesel",
+    "水力" => "hydro",
+    "風力" => "wind",
+    "抽蓄發電" => "pumping gen",
+    "抽蓄負載" => "pumping load",
+    "太陽能" => "solar",
+    "水力" => "water",
+    "民營電廠-燃煤" => "ipp-coal",
+    "民營電廠-燃氣" => "ipp-lng",
+    "全部" => "all",
 ];
 
 
@@ -123,7 +140,6 @@ $summaryInfo = [
         "fix" => 0,
         "break" => 0,
     ],
-
 ];
 
 if (!empty($data)) {
@@ -179,7 +195,7 @@ if (!empty($data)) {
             $tryMappingName = htmlspecialchars($tryMappingName);
 
             if (isset($mappingNameStorage[$tryMappingName])) {
-                $powerData["mappingName"] = $mappingNameStorage[$tryMappingName];
+                $powerData["mappingName"] = [$mappingNameStorage[$tryMappingName]];
             } else {
                 $powerData["mappingName"] = [$tryMappingName];
             }
@@ -187,14 +203,14 @@ if (!empty($data)) {
             $tryMappingName = trim($match["mappingName"]);
 
             if (isset($mappingNameStorage[$tryMappingName])) {
-                $powerData["mappingName"] = $mappingNameStorage[$tryMappingName];
+                $powerData["mappingName"] = [$mappingNameStorage[$tryMappingName]];
             } else {
                 $powerData["mappingName"] = [$tryMappingName];
             }
         } else {
             $tryMappingName = trim($tryMappingName);
             if (isset($mappingNameStorage[$tryMappingName])) {
-                $powerData["mappingName"] = $mappingNameStorage[$tryMappingName];
+                $powerData["mappingName"] = [$mappingNameStorage[$tryMappingName]];
             } else {
                 $powerData["mappingName"] = [$tryMappingName];
             }
@@ -203,6 +219,10 @@ if (!empty($data)) {
         /* 類型正規化成英文 */
         if (preg_match("/\((?P<type>[a-zA-Z-\s]{1,})\)/", $powerData["type"], $match)) {
             $powerData["type"] = strtolower($match["type"]);
+        } else if (isset($mappingNameStorage[$powerData["type"]])){
+            $powerData["type"] = strtolower($mappingNameStorage[$powerData["type"]]);
+        } else {
+
         }
 
         /* 政府民間？ */
