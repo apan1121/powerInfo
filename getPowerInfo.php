@@ -55,7 +55,6 @@ $mappingNameStorage = [
     "抽蓄發電" => "pumping gen",
     "抽蓄負載" => "pumping load",
     "太陽能" => "solar",
-    "水力" => "water",
     "民營電廠-燃煤" => "ipp-coal",
     "民營電廠-燃氣" => "ipp-lng",
     "全部" => "all",
