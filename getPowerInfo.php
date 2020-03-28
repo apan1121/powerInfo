@@ -1,6 +1,16 @@
 <?php
 $dir = dirname(__FILE__)."/";
-$data = @json_decode(file_get_contents("http://data.taipower.com.tw/opendata01/apply/file/d006001/001.txt"),true);
+// $data = @json_decode(file_get_contents("http://data.taipower.com.tw/opendata01/apply/file/d006001/001.txt"),true);
+
+$ch = curl_init();
+$url = "http://data.taipower.com.tw/opendata01/apply/file/d006001/001.txt";
+curl_setopt($ch, CURLOPT_URL, $url);
+curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+$data = curl_exec($ch);
+curl_close($ch);
+
+$data = @json_decode($data, true);
+
 
 $getTime = "";
 $summaryDays = 15;
