@@ -11,7 +11,6 @@ curl_close($ch);
 
 $data = @json_decode($data, true);
 
-
 $getTime = "";
 $summaryDays = 15;
 
@@ -62,6 +61,7 @@ $mappingNameStorage = [
     "輕油" => "diesel",
     "水力" => "hydro",
     "風力" => "wind",
+    "地熱" => "geothermal",
     "抽蓄發電" => "pumping gen",
     "抽蓄負載" => "pumping load",
     "太陽能" => "solar",
@@ -143,6 +143,13 @@ $summaryInfo = [
         "break" => 0,
     ],
     "pumping load" => [
+        "cap" => 0,
+        "used" => 0,
+        "limit" => 0,
+        "fix" => 0,
+        "break" => 0,
+    ],
+    "geothermal" => [
         "cap" => 0,
         "used" => 0,
         "limit" => 0,

@@ -13,6 +13,7 @@ define({
         "solar": "太陽能",
         "all": "全部",
         "water": "水力",
+        "geothermal": "地熱",
 
 
         "online": "商轉中",
