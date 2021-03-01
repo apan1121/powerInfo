@@ -1,18 +1,19 @@
 @font-face {
   font-family: 'icomoon';
-  src:  url('fonts/icomoon.eot?78nnpy');
-  src:  url('fonts/icomoon.eot?78nnpy#iefix') format('embedded-opentype'),
-    url('fonts/icomoon.ttf?78nnpy') format('truetype'),
-    url('fonts/icomoon.woff?78nnpy') format('woff'),
-    url('fonts/icomoon.svg?78nnpy#icomoon') format('svg');
+  src:  url('fonts/icomoon.eot?cdkqd2');
+  src:  url('fonts/icomoon.eot?cdkqd2#iefix') format('embedded-opentype'),
+    url('fonts/icomoon.ttf?cdkqd2') format('truetype'),
+    url('fonts/icomoon.woff?cdkqd2') format('woff'),
+    url('fonts/icomoon.svg?cdkqd2#icomoon') format('svg');
   font-weight: normal;
   font-style: normal;
+  font-display: block;
 }
 
 [class^="icon-"], [class*=" icon-"] {
   /* use !important to prevent issues with browser extensions that change fonts */
   font-family: 'icomoon' !important;
-  speak: none;
+  speak: never;
   font-style: normal;
   font-weight: normal;
   font-variant: normal;
@@ -24,6 +25,9 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+.icon-geothermal:before {
+  content: "\e90d";
+}
 .icon-power:before {
   content: "\e90b";
 }
