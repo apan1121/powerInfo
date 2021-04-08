@@ -7,6 +7,9 @@ $url = "http://data.taipower.com.tw/opendata01/apply/file/d006001/001.txt";
 curl_setopt($ch, CURLOPT_URL, $url);
 curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 $data = curl_exec($ch);
+if (empty($data)) {
+    $data = file_get_contents("http://data.taipower.com.tw/opendata01/apply/file/d006001/001.txt");
+}
 curl_close($ch);
 
 $data = @json_decode($data, true);
