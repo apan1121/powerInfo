@@ -3,12 +3,12 @@ $dir = dirname(__FILE__)."/";
 // $data = @json_decode(file_get_contents("http://data.taipower.com.tw/opendata01/apply/file/d006001/001.txt"),true);
 
 $ch = curl_init();
-$url = "http://data.taipower.com.tw/opendata01/apply/file/d006001/001.txt";
+$url = "https://www.taipower.com.tw/d006/loadGraph/loadGraph/data/genary.json";
 curl_setopt($ch, CURLOPT_URL, $url);
 curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 $data = curl_exec($ch);
 if (empty($data)) {
-    $data = file_get_contents("http://data.taipower.com.tw/opendata01/apply/file/d006001/001.txt");
+    $data = file_get_contents($url);
 }
 curl_close($ch);
 
