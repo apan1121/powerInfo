@@ -87,6 +87,29 @@ require([jsVars.baseResUrl + 'js/lib/common.js'], function(common) {
                 that.$el.find("[data-toggle='tab']").on("shown.bs.tab", function(e){
                     that.mixpanel.track("tab", {"target":$(this).attr("aria-controls")});
                 });
+
+
+                $('#DownTimeNotice').on('shown.bs.modal', function (){
+                    var options = {
+                        threshold: 0,
+                        rootMargin: "30px 30px 30px 30px",
+                      };
+
+                    var callback = function(entries){
+                        for (var i in entries) {
+                            console.log(entries[i]);
+                            if (entries[i].isIntersecting) {
+                                $('#V2Link').fadeIn();
+                            }
+                        }
+                    };
+                    var observer = new IntersectionObserver(callback, options);
+                    const target = document.querySelector('#V2Detect');
+                    observer.observe(target);
+
+                });
+
+                $('#DownTimeNotice').modal('show');
             }
         });
 
