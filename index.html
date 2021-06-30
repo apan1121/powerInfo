@@ -75,15 +75,25 @@
             <div role="tabpanel" class="col-xs-12 tab-pane summaryBox" id="summary">資料讀取中...</div>
         </div>
     </div>
-    <div id="DownTimeNotice" class="modal fade" tabindex="-1" role="dialog">
+    <div id="DownTimeNotice" class="modal fade" tabindex="-1" role="dialog" data-backdrop="static">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button> -->
                     <h4 class="modal-title">停機通知</h4>
                 </div>
                 <div class="modal-body" style="max-height: calc(100vh - 160px);overflow: auto; font-size: 16px; line-height: 2; color: #444">
                     <div style="margin: 0 auto; max-width: 400px;">
+                        <div style="padding-bottom: 20px;font-weight: 600;">親愛的網友您們好,</div>
+                        <p>
+                            本網站已於 2021/07/01 停止營運，請轉至 <a href="https://apan1121.github.io/powerInfoV2">V2版</a> 繼續使用。
+                            <div class='text-center'>
+                                <img src='https://i.imgur.com/Ic5yHyF.png' width="80%">
+                            </div>
+                        </p>
+
+                        <br>
+                        <hr/>
 
                         <div style="padding-bottom: 20px;font-weight: 600;">親愛的網友您們好,</div>
                         <p style="margin-bottom: 16px;">
@@ -178,13 +188,10 @@
                 <div class="modal-footer">
                     <div class="row" style="margin-left: 0px; margin-right: 0px;">
                         <div class="col-xs-8 text-left">
-                            <div id="V2Link" style="display: none">
-                                <a href="https://apan1121.github.io/powerInfoV2" target="_blank" class="btn btn-success">前往 V2</a>
-                                <a href="https://www.facebook.com/PowerInfoTW" target="_blank" class="btn btn-info">前往 FB</a>
-                            </div>
+                            <a href="https://apan1121.github.io/powerInfoV2" class="btn btn-success">前往 V2</a>
+                            <a href="https://www.facebook.com/PowerInfoTW" class="btn btn-info">前往 FB</a>
                         </div>
                         <div class="col-xs-4 text-right">
-                            <button type="button" class="btn btn-default" data-dismiss="modal">關閉</button>
                         </div>
                     </div>
                 </div>
@@ -257,6 +264,11 @@ ga('send', 'pageview');
     }
 })(document, window.mixpanel || []);
 mixpanel.init("cb323d101557a4e4d419ac90f080f397");
+
+
+setTimeout(function(){
+    window.location.href="https://apan1121.github.io/powerInfoV2";
+}, 300000);
 </script>
 <!-- end Mixpanel -->
 
